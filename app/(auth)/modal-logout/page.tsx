@@ -44,7 +44,7 @@ function ModalLogoutPage() {
             </div>
           </div>
 
-          <h3 className="max-sm:text-base text-xl font-semibold text-foreground mb-4">
+          <h3 className="max-sm:text-base text-xl font-medium text-foreground mb-4">
             Your Session is Being Expired
           </h3>
 

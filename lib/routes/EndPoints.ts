@@ -4,6 +4,12 @@ export const EndPoints = {
   login: `${api}auth/login`,
   register: `${api}auth/register`,
   logout: `${api}auth/logout`,
+  user: {
+    get: `${api}users`,
+    add: `${api}users`,
+    update: (id: string) => `${api}users/${id}`,
+    delete: (id: number) => `${api}users/${id}`,
+  },
   report: {
     getReport: (
       storage: string,
