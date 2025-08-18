@@ -35,14 +35,29 @@ export async function apiRequest<T>(
 
     const responseData = await response.json();
 
-    let message: string;
+    let message: string = "An unexpected error occurred.";
 
     if (responseData && typeof responseData === "object") {
-      message = !!Object.keys(responseData).length
-        ? String(responseData[Object.keys(responseData)[0]])
-        : "Success but no data";
-    } else {
-      message = String(responseData);
+      const { message: msg } = responseData;
+
+      if (typeof msg === "string") {
+        message = msg;
+      } else if (Array.isArray(msg)) {
+        message = msg
+          .map((err: any) => {
+            if (
+              typeof err === "object" &&
+              err.field &&
+              Array.isArray(err.messages)
+            ) {
+              return `${err.field}: ${err.messages.join(", ")}`;
+            }
+            return JSON.stringify(err);
+          })
+          .join(" | ");
+      } else {
+        message = "An error occurred: " + JSON.stringify(responseData);
+      }
     }
 
     return {
@@ -50,6 +65,22 @@ export async function apiRequest<T>(
       data: response.ok ? responseData : undefined,
       message,
     };
+
+    // let message: string;
+
+    // if (responseData && typeof responseData === "object") {
+    //   message = !!Object.keys(responseData).length
+    //     ? String(responseData[Object.keys(responseData)[0]])
+    //     : "Success but no data";
+    // } else {
+    //   message = String(responseData);
+    // }
+
+    // return {
+    //   success: response.ok,
+    //   data: response.ok ? responseData : undefined,
+    //   message,
+    // };
   } catch (error: any) {
     const message = error?.response?.data
       ? Object.keys(error.response.data)[0] +

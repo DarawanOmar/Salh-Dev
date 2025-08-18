@@ -1,3 +1,5 @@
+import { get } from "http";
+
 export const api = `${process.env.NEXT_PUBLIC_API_URL}/`;
 
 export const EndPoints = {
@@ -5,33 +7,30 @@ export const EndPoints = {
   register: `${api}auth/register`,
   logout: `${api}auth/logout`,
   user: {
-    get: `${api}users`,
-    add: `${api}users`,
-    update: (id: string) => `${api}users/${id}`,
-    delete: (id: number) => `${api}users/${id}`,
-  },
-  report: {
-    getReport: (
-      storage: string,
-      money_type: string,
-      date: string,
-      date_picker: string
-    ) => {
+    get: (page: string, search: string) => {
       const queryParams = [];
 
-      if (money_type) {
-        queryParams.push(`money_type=${money_type}`);
+      if (page) {
+        queryParams.push(`page=${page}`);
       }
-      if (date) {
-        queryParams.push(`date=${date}`);
+      if (search) {
+        queryParams.push(`search=${search}`);
       }
-      if (date_picker) {
-        const [startDate, endDate] = date_picker.split("to");
-        queryParams.push(`from=${startDate}&to=${endDate}`);
-      }
+
       const queryString =
         queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
-      return `${api}report?storage=${storage}${queryString}`;
+      return `${api}users?page=${page}&per_page=10${queryString}`;
     },
+    getById: (id: string) => `${api}users/${id}`,
+    add: `${api}users`,
+    update: (id: string) => `${api}users/${id}`,
+    delete: (id: string) => `${api}users/${id}`,
+  },
+  role: {
+    get: `${api}roles`,
+    getById: (id: string) => `${api}roles/${id}`,
+    add: `${api}roles`,
+    update: (id: string) => `${api}roles/${id}`,
+    delete: (id: number) => `${api}roles/${id}`,
   },
 };

@@ -22,7 +22,7 @@ export default async function RootLayout({
         <SidebarProvider>
           <AppSidebar session={user} side={"right"} />
 
-          <div className="w-full px-2 sm:p-4 ">
+          <div className="w-full px-2  ">
             <div className="w-full flex  justify-between items-center gap-5 mt-2">
               <div className="flex gap-3 items-center">
                 <div className="flex lg:hidden ">

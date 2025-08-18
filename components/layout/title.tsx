@@ -6,7 +6,7 @@ type Props = {
 
 function Title({ title }: Props) {
   return (
-    <h1 className="text-base md:text-lg lg:text-xl 2xl:text-2xl border-b-2 border-primary font-medium">
+    <h1 className=" lg:text-lg 2xl:text-xl border-b-2 border-primary font-medium">
       {title}
     </h1>
   );

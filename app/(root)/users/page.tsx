@@ -24,12 +24,21 @@ async function Users({ searchParams }: SearchParamsTypeUse) {
 export default Users;
 
 async function FeedUser({ searchParams }: SearchParamsTypeUse) {
-  const { page, search } = await getParams(searchParams, ["page", "search"]);
-  const getUsers = await getAllUsers();
+  const { page, search } = await getParams(searchParams, [
+    { key: "page", defaultValue: "1" },
+    "search",
+  ]);
+
+  const getUsers = await getAllUsers(page, search);
+
   return (
     <DataTable
       currentPage={+page}
-      totalPage={(getUsers.data?.meta?.total || 1) / 10 || 1}
+      totalPage={
+        (getUsers.data?.meta?.total || 1) / 10 < 1
+          ? 1
+          : (getUsers.data?.meta?.total || 1) / 10
+      }
       data={getUsers.data?.data || []}
       columns={column}
     />

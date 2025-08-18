@@ -9,9 +9,9 @@ import { StopCircle, TrashIcon } from "lucide-react";
 import LoadingSpinner from "./loadingSpinner";
 
 type DialogModalProps = {
-  id: number;
+  id: string;
   actionDelete: (
-    id: number,
+    id: string,
     options?: any
   ) => Promise<{ message: string; success: boolean }>;
   classButton?: string;

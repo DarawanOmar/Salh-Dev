@@ -10,6 +10,8 @@ export const addUserAction = async (data: addUserType) => {
     url: EndPoints.user.add,
     data,
   });
+  console.log("URL => ", EndPoints.user.add);
+  console.log("object", result);
   return result;
 };
 export const updateUserAction = async (id: string, data: addUserType) => {
@@ -20,10 +22,12 @@ export const updateUserAction = async (id: string, data: addUserType) => {
   });
   return result;
 };
-export const deleteUserAction = async (id: number) => {
+export const deleteUserAction = async (id: string) => {
   const result = await apiRequest({
     method: "DELETE",
     url: EndPoints.user.delete(id),
   });
+  console.log("URL => ", EndPoints.user.delete(id));
+  console.log("Result => ", result);
   return result;
 };

@@ -13,11 +13,11 @@ import { DataTableColumnHeader } from "@/components/reusable/data-table-column-h
 import CustomDialog from "@/components/reusable/resusable-dialog";
 import ReusableDeleteDailog from "@/components/reusable/reusable-delete-dialog";
 import { format } from "date-fns";
-import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { deleteUserAction } from "../_action";
 import { User } from "../_type";
 import AddUser from "./form/add-user";
+import Link from "next/link";
 
 const column: ColumnDef<User>[] = [
   {
@@ -75,13 +75,28 @@ const column: ColumnDef<User>[] = [
     },
   },
   {
+    accessorKey: "profile",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="پروفایل" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <Link href={`/users/${row?.original?.id}`}>
+          <Button size={"sm"} className="rounded h-8 py-0 px-2">
+            بــیــنــین
+          </Button>
+        </Link>
+      );
+    },
+  },
+  {
     accessorKey: "createdAt",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="بەروار" />
     ),
     cell: ({ row }) => {
       return (
-        <span className="text-sm text-gray-500 flex justify-start">
+        <span className="text-sm text-gray-500 flex justify-center">
           {format(new Date(row?.original?.createdAt), "yyyy-MM-dd")}
         </span>
       );
@@ -94,7 +109,6 @@ const column: ColumnDef<User>[] = [
       const [open, setOpen] = React.useState(false);
       const handleClose = () => setOpen((prev) => !prev);
       const { id } = row.original;
-
       return (
         <div className="">
           <DropdownMenu>
@@ -110,7 +124,7 @@ const column: ColumnDef<User>[] = [
                 onOpenChange={setOpen}
                 isFreshButtonPass
                 title="گۆرانکاری"
-                classContent="max-w-2xl"
+                classContent="max-w-4xl"
                 button={
                   <button className="flex gap-2 items-center font-sirwan_reguler  hover:bg-primary hover:text-white transition-all duration-500 p-2 rounded-t-lg w-full">
                     <EditIcon height={18} width={18} />
@@ -123,14 +137,14 @@ const column: ColumnDef<User>[] = [
                   isEdit
                   handleClose={handleClose}
                   info={{
-                    roleId: row?.original?.roleId,
+                    roleId: row?.original?.role?.id || "",
                     email: row?.original?.email,
                     name: row?.original?.name,
                     password: "",
-                    address: "",
-                    fullName: "",
-                    note: "",
-                    phone: "",
+                    address: row.original?.address,
+                    fullName: row.original?.fullName,
+                    note: row.original?.note,
+                    phone: row.original?.phone,
                   }}
                 />
               </CustomDialog>
@@ -145,7 +159,7 @@ const column: ColumnDef<User>[] = [
                   </button>
                 }
                 actionDelete={deleteUserAction}
-                id={+id}
+                id={id}
               />
             </DropdownMenuContent>
           </DropdownMenu>

@@ -2,12 +2,11 @@ type searchParamsType = Promise<{
   [key: string]: string | string[] | undefined;
 }>;
 
-type paramsType = Promise<{
-  [key: string]: string | string[] | undefined;
-}>;
-
 type SearchParamsTypeUse = {
   searchParams: searchParamsType;
+};
+type ParamsTypeUse = {
+  params: paramsType;
 };
 
 type ResponseData<T> = {

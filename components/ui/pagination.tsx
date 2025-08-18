@@ -14,6 +14,7 @@ const PaginatedComponent = ({
   currentPage: number;
   className?: string;
 }) => {
+  const currentPageNumber = currentPage < 1 ? 1 : currentPage;
   const [page, setPage] = useQueryState("page", {
     defaultValue: "",
     shallow: false,
@@ -25,7 +26,7 @@ const PaginatedComponent = ({
 
   const generatePages = () => {
     const pages = [];
-    const current = Number(currentPage);
+    const current = Number(currentPageNumber);
 
     if (totalPages <= 5) {
       for (let i = 1; i <= totalPages; i++) {
@@ -58,10 +59,10 @@ const PaginatedComponent = ({
       {/* Previous ButtonButton */}
       <Button
         size={"sm"}
-        disabled={Number(currentPage) === 1}
-        onClick={() => handlePageChange(Number(currentPage) - 1)}
+        disabled={Number(currentPageNumber) === 1}
+        onClick={() => handlePageChange(Number(currentPageNumber) - 1)}
         // className={`p-1.5  border ${
-        //   Number(currentPage) === 1
+        //   Number(currentPageNumber) === 1
         //     ? "text-gray-400 border-gray-200 cursor-not-allowed "
         //     : "bg-primary text-white hover:bg-primary hover:text-white transition-all duration-500 hover:border-transparent"
         // }`}
@@ -84,7 +85,7 @@ const PaginatedComponent = ({
               //   "px-3 py-1  border max-w-max text-sm  text-primary bg-transparent border-primary hover:bg-primary hover:text-white transition-all duration-500 hover:border-soft_primary cursor-pointer",
               //   {
               //     "bg-primary border-soft_primary text-white ":
-              //       Number(page) === Number(currentPage),
+              //       Number(page) === Number(currentPageNumber),
               //   }
               // )}
             >
@@ -96,10 +97,10 @@ const PaginatedComponent = ({
       {/* Next ButtonButton */}
       <Button
         size={"sm"}
-        disabled={Number(currentPage) === totalPages}
-        onClick={() => handlePageChange(Number(currentPage) + 1)}
+        disabled={Number(currentPageNumber) === totalPages}
+        onClick={() => handlePageChange(Number(currentPageNumber) + 1)}
         // className={`p-1.5  border ${
-        //   Number(currentPage) === totalPages
+        //   Number(currentPageNumber) === totalPages
         //     ? "text-gray-400 border-gray-200 cursor-not-allowed  "
         //     : "bg-primary text-white  transition-all duration-500 hover:border-transparent"
         // }`}

@@ -13,12 +13,13 @@ import { addUser, addUserType } from "../../_type";
 import { addUserAction, updateUserAction } from "../../_action";
 import { SelectFormField } from "@/components/reusable/reusable-select";
 import { TabFormFeild } from "@/components/reusable/tab-form-feild";
+import { useGetRole } from "@/hooks/use-role";
 
 type filmFormProps = {
   isEdit?: boolean;
   info?: addUserType;
   handleClose?: () => void;
-  id?: number | string;
+  id?: string;
 };
 
 export default function AddUser({
@@ -33,6 +34,8 @@ export default function AddUser({
     resolver: zodResolver(addUser),
     defaultValues: getDefaultValues(info),
   });
+
+  const { data: roles, isLoading, isError } = useGetRole();
 
   function onSubmit(values: addUserType) {
     setPendding(async () => {
@@ -72,6 +75,18 @@ export default function AddUser({
             label="ناوی بەکارهێنەر"
             placeholder="ناوی بەکارهێنەر"
           />
+          <TextField
+            control={form.control}
+            name="phone"
+            label="ژمارەی مۆبایل"
+            placeholder="ژمارەی مۆبایل"
+          />
+          <TextField
+            control={form.control}
+            name="address"
+            label="ناونیشان"
+            placeholder="ناونیشان"
+          />
 
           <TextField
             control={form.control}
@@ -90,27 +105,26 @@ export default function AddUser({
             control={form.control}
             name="status"
             label={"دۆخ"}
-            defaultValue="active"
+            defaultValue="true"
             options={[
-              { value: "active", label: "چــالاک" },
-              { value: "deactive", label: "نــاچـــالاک" },
+              { value: "true", label: "چــالاک" },
+              { value: "false", label: "نــاچـــالاک" },
             ]}
           />
           <SelectFormField
             control={form.control}
             name="roleId"
-            placeholder=""
+            placeholder="ڕۆڵ هەڵبژێرە"
             label={"ڕۆڵ"}
-            isError={false}
-            isLoading={false}
+            isError={isError}
+            isLoading={isLoading}
             options={
-              //   roles?.data?.map((item) => {
-              //     return {
-              //       label: item.name,
-              //       value: item.id.toString(),
-              //     };
-              //   }) || []
-              []
+              roles?.data?.map((item) => {
+                return {
+                  label: item.name,
+                  value: item.id,
+                };
+              }) || []
             }
           />
         </div>
