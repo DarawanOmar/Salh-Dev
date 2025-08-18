@@ -6,6 +6,11 @@ import { DataTable } from "@/components/reusable/table";
 import column from "./_components/column";
 import { getAllCommitee } from "./_lib";
 import { getParams } from "@/lib/utils";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Committe",
+};
 
 async function CommiteePage({ searchParams }: SearchParamsTypeUse) {
   return (
