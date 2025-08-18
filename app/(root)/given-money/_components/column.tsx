@@ -13,49 +13,70 @@ import { DataTableColumnHeader } from "@/components/reusable/data-table-column-h
 import CustomDialog from "@/components/reusable/resusable-dialog";
 import ReusableDeleteDailog from "@/components/reusable/reusable-delete-dialog";
 import Link from "next/link";
-import { Charitable } from "../_type";
-import { deleteCharitableAction } from "../_action";
-import AddCharitableForm from "./form/add-income-revenue";
+import { Given } from "../_type";
+import { format } from "date-fns";
+import AddGivenForm from "./form/add-given-money";
+import { deleteGivenAction } from "../_action";
 
-const column: ColumnDef<Charitable>[] = [
+const column: ColumnDef<Given>[] = [
   {
     accessorKey: "fullName",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="ناو" />
+      <DataTableColumnHeader column={column} title="ناوی تەواو" />
+    ),
+    cell: ({ row }) => {
+      return <span className="text-sm text-gray-500">{row?.original?.id}</span>;
+    },
+  },
+
+  {
+    accessorKey: "createdAt",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="بەرواری داخڵکردن" />
     ),
     cell: ({ row }) => {
       return (
-        <span className="text-sm text-gray-500">{row?.original?.fullName}</span>
+        <span className="">
+          {format(row?.original?.createdAt || new Date(), "dd/MM/yyyy")}
+        </span>
       );
     },
   },
 
   {
-    accessorKey: "phone",
+    accessorKey: "userId",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="ژمارەی مۆبایل" />
+      <DataTableColumnHeader column={column} title="بەکارهێنەر" />
     ),
     cell: ({ row }) => {
-      return <span className="">{row?.original?.phone}</span>;
-    },
-  },
-
-  {
-    accessorKey: "address",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="ناونیشان" />
-    ),
-    cell: ({ row }) => {
-      return <span className="">{row?.original?.address || "-"}</span>;
+      return <span className="">{row?.original?.userId || "-"}</span>;
     },
   },
   {
-    accessorKey: "description",
+    accessorKey: "amount",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="بڕی پارە" />
+    ),
+    cell: ({ row }) => {
+      return <span className="">{row?.original?.amount || "-"}</span>;
+    },
+  },
+  {
+    accessorKey: "currencyType",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="جۆری پارە" />
+    ),
+    cell: ({ row }) => {
+      return <span className="">{row?.original?.currencyType || "-"}</span>;
+    },
+  },
+  {
+    accessorKey: "note",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="وەسف" />
     ),
     cell: ({ row }) => {
-      return <span className="">{row?.original?.description || "-"}</span>;
+      return <span className="">{row?.original?.note || "-"}</span>;
     },
   },
   {
@@ -103,15 +124,16 @@ const column: ColumnDef<Charitable>[] = [
                   </button>
                 }
               >
-                <AddCharitableForm
+                <AddGivenForm
                   id={id}
                   isEdit
                   handleClose={handleClose}
                   info={{
-                    fullName: row?.original?.fullName,
-                    address: row.original?.address,
-                    description: row.original?.description,
-                    phone: row.original?.phone,
+                    amount: row.original?.amount,
+                    currencyType: row.original?.currencyType,
+                    note: row.original?.note,
+                    userId: row.original?.userId,
+                    safeId: row.original?.safeId,
                   }}
                 />
               </CustomDialog>
@@ -125,7 +147,7 @@ const column: ColumnDef<Charitable>[] = [
                     <span className="text-sm">سڕینەوە</span>
                   </button>
                 }
-                actionDelete={deleteCharitableAction}
+                actionDelete={deleteGivenAction}
                 id={id}
               />
             </DropdownMenuContent>

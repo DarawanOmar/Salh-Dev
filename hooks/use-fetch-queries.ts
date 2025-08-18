@@ -1,6 +1,7 @@
 import { getAllCommiteeWithoutPagination } from "@/app/(root)/committee/_lib";
 import {
   getAllCharitableWithoutPagination,
+  getAllHeadMemberWithoutPagination,
   getAllRoles,
   getAllUsersWithoutPagination,
 } from "@/query/lib";
@@ -27,6 +28,14 @@ export const useGetCharitable = () => {
   return useQuery({
     queryKey: ["getCharitableWithoutPagination"],
     queryFn: getAllCharitableWithoutPagination,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    refetchOnWindowFocus: false,
+  });
+};
+export const useGetHeadMember = () => {
+  return useQuery({
+    queryKey: ["getHeadMemberWithoutPagination"],
+    queryFn: getAllHeadMemberWithoutPagination,
     staleTime: 1000 * 60 * 5, // 5 minutes
     refetchOnWindowFocus: false,
   });

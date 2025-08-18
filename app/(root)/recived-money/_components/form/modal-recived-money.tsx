@@ -3,9 +3,9 @@
 import React from "react";
 import { Plus } from "lucide-react";
 import CustomDialog from "@/components/reusable/resusable-dialog";
-import AddIncomeRevenueForm from "./add-income-revenue";
+import AddRecivedMoneyForm from "./add-recived-money";
 
-function ModalAddIncomeRevenue() {
+function ModalAddRecivedMoney() {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
     setOpen((prev) => !prev);
@@ -19,9 +19,9 @@ function ModalAddIncomeRevenue() {
       text_button="زیادکردنی خــێـــرخــواز"
       title="زیادکردنی خــێـــرخــواز"
     >
-      <AddIncomeRevenueForm handleClose={handleClose} />
+      <AddRecivedMoneyForm handleClose={handleClose} />
     </CustomDialog>
   );
 }
 
-export default ModalAddIncomeRevenue;
+export default ModalAddRecivedMoney;

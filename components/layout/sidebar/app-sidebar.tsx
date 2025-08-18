@@ -94,15 +94,15 @@ const data = (permissions: string[]) => {
       },
       {
         title: "پـــارەی هـــاتوو",
-        url: "/income-revenue",
+        url: "/recived-money",
         icon: IncomeRevenue,
-        isActive: permissions.includes("income-revenue"),
+        isActive: permissions.includes("recived-money"),
       },
       {
         title: "پـــارەی دەچـــوو",
-        url: "/out-go-revenue",
+        url: "/given-money",
         icon: OutGoRevenue,
-        isActive: permissions.includes("out-go-revenue"),
+        isActive: permissions.includes("given-money"),
       },
       {
         title: "ڕاپـــۆرت",

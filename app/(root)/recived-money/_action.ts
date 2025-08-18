@@ -2,9 +2,9 @@
 
 import { apiRequest } from "@/lib/utils/axiosHandler";
 import { EndPoints } from "@/lib/routes/EndPoints";
-import { addIncomeRevenueType } from "./_type";
+import { addRecivedMoneyType } from "./_type";
 
-export const addIncomeRevenueAction = async (data: addIncomeRevenueType) => {
+export const addRecivedMoneyAction = async (data: addRecivedMoneyType) => {
   const result = await apiRequest({
     method: "POST",
     url: EndPoints.income_revenue.add,
@@ -14,9 +14,9 @@ export const addIncomeRevenueAction = async (data: addIncomeRevenueType) => {
   console.log("object", result);
   return result;
 };
-export const updateIncomeRevenueAction = async (
+export const updateRecivedMoneyAction = async (
   id: string,
-  data: addIncomeRevenueType
+  data: addRecivedMoneyType
 ) => {
   const result = await apiRequest({
     method: "PATCH",
@@ -25,7 +25,7 @@ export const updateIncomeRevenueAction = async (
   });
   return result;
 };
-export const deleteIncomeRevenueAction = async (id: string) => {
+export const deleteRecivedMoneyAction = async (id: string) => {
   const result = await apiRequest({
     method: "DELETE",
     url: EndPoints.income_revenue.delete(id),

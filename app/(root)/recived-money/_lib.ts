@@ -1,17 +1,17 @@
 import { apiRequest } from "@/lib/utils/axiosHandler";
 import { EndPoints } from "@/lib/routes/EndPoints";
-import { IncomeRevenue } from "./_type";
+import { RecivedMoney } from "./_type";
 
-export const getAllIncomeRevenue = async (page: string, search: string) => {
-  const result = await apiRequest<ResponseData<IncomeRevenue[]>>({
+export const getAllRecivedMoney = async (page: string, search: string) => {
+  const result = await apiRequest<ResponseData<RecivedMoney[]>>({
     method: "GET",
     url: EndPoints.income_revenue.get(page, search),
   });
   return result;
 };
 
-export const getOneIncomeRevenue = async (id: string) => {
-  const result = await apiRequest<IncomeRevenue>({
+export const getOneRecivedMoney = async (id: string) => {
+  const result = await apiRequest<RecivedMoney>({
     method: "GET",
     url: EndPoints.income_revenue.getById(id),
   });

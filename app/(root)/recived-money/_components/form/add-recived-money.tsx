@@ -9,23 +9,20 @@ import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import LoadingSpinner from "@/components/reusable/loadingSpinner";
 import { TextField } from "@/components/reusable/input-form-reusable";
-import {
-  addIncomeRevenueAction,
-  updateIncomeRevenueAction,
-} from "../../_action";
-import { addIncomeRevenue, addIncomeRevenueType } from "../../_type";
+import { addRecivedMoneyAction, updateRecivedMoneyAction } from "../../_action";
+import { addRecivedMoney, addRecivedMoneyType } from "../../_type";
 import { typeOfCurrency } from "@/app/(root)/assisted/[id]/_components/page/owning/form/add-owning";
 import { SelectFormField } from "@/components/reusable/reusable-select";
 import { useGetCharitable, useGetUsers } from "@/hooks/use-fetch-queries";
 
 type Props = {
   isEdit?: boolean;
-  info?: addIncomeRevenueType;
+  info?: addRecivedMoneyType;
   handleClose?: () => void;
   id?: string;
 };
 
-export default function AddCharitableForm({
+export default function AddRecivedMoneyForm({
   isEdit,
   info,
   handleClose,
@@ -33,8 +30,8 @@ export default function AddCharitableForm({
 }: Props) {
   const [pendding, setPendding] = useTransition();
   const router = useRouter();
-  const form = useForm<addIncomeRevenueType>({
-    resolver: zodResolver(addIncomeRevenue),
+  const form = useForm<addRecivedMoneyType>({
+    resolver: zodResolver(addRecivedMoney),
     defaultValues: getDefaultValues(info),
   });
   const { data: charitable, isLoading, isError } = useGetCharitable();
@@ -43,11 +40,11 @@ export default function AddCharitableForm({
     isLoading: usersLoading,
     isError: usersError,
   } = useGetUsers();
-  function onSubmit(values: addIncomeRevenueType) {
+  function onSubmit(values: addRecivedMoneyType) {
     setPendding(async () => {
       const result = isEdit
-        ? await updateIncomeRevenueAction(id as string, values)
-        : await addIncomeRevenueAction(values);
+        ? await updateRecivedMoneyAction(id as string, values)
+        : await addRecivedMoneyAction(values);
       if (result.success) {
         toast.success(result.message);
         handleClose && handleClose();
@@ -130,8 +127,8 @@ export default function AddCharitableForm({
   );
 }
 
-const getDefaultValues = (values: Partial<addIncomeRevenueType> = {}) => {
-  const defaultValues: addIncomeRevenueType = {
+const getDefaultValues = (values: Partial<addRecivedMoneyType> = {}) => {
+  const defaultValues: addRecivedMoneyType = {
     amount: "",
     charitableId: "",
     currencyType: "",

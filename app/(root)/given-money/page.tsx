@@ -5,46 +5,46 @@ import { DataTable } from "@/components/reusable/table";
 import column from "./_components/column";
 import { getParams } from "@/lib/utils";
 import { Metadata } from "next";
-import { getAllIncomeRevenue } from "./_lib";
-import ModalAddIncomeRevenue from "./_components/form/modal-income-revenue";
+import { getAllGiven } from "./_lib";
+import ModalAddGiven from "./_components/form/modal-given-money";
 
 export const metadata: Metadata = {
-  title: "IncomeRevenue",
+  title: "Given",
 };
 
-async function IncomeRevenuePage({ searchParams }: SearchParamsTypeUse) {
+async function GivenPage({ searchParams }: SearchParamsTypeUse) {
   return (
     <div className="my-10">
       <div className="flex justify-between items-center">
-        <Title title="پـــارەی هــاتــوو" />
-        <ModalAddIncomeRevenue />
+        <Title title="پـــارەی دەرچـــوو" />
+        <ModalAddGiven />
       </div>
       <Suspense fallback={<TableFallback />}>
-        <FeedIncomeRevenue searchParams={searchParams} />
+        <FeedGiven searchParams={searchParams} />
       </Suspense>
     </div>
   );
 }
 
-export default IncomeRevenuePage;
+export default GivenPage;
 
-async function FeedIncomeRevenue({ searchParams }: SearchParamsTypeUse) {
+async function FeedGiven({ searchParams }: SearchParamsTypeUse) {
   const { page, search } = await getParams(searchParams, [
     { key: "page", defaultValue: "1" },
     "search",
   ]);
 
-  const getIncomeRevenue = await getAllIncomeRevenue(page, search);
+  const getGiven = await getAllGiven(page, search);
 
   return (
     <DataTable
       currentPage={+page}
       totalPage={
-        (getIncomeRevenue.data?.meta?.total || 1) / 10 < 1
+        (getGiven.data?.meta?.total || 1) / 10 < 1
           ? 1
-          : (getIncomeRevenue.data?.meta?.total || 1) / 10
+          : (getGiven.data?.meta?.total || 1) / 10
       }
-      data={getIncomeRevenue.data?.data || []}
+      data={getGiven.data?.data || []}
       columns={column}
     />
   );
