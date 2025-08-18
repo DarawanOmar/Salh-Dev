@@ -26,6 +26,26 @@ export const EndPoints = {
     update: (id: string) => `${api}users/${id}`,
     delete: (id: string) => `${api}users/${id}`,
   },
+  commitee: {
+    get: (page: string, search: string) => {
+      const queryParams = [];
+
+      if (page) {
+        queryParams.push(`page=${page}`);
+      }
+      if (search) {
+        queryParams.push(`search=${search}`);
+      }
+
+      const queryString =
+        queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
+      return `${api}committee-members?page=${page}&per_page=10${queryString}`;
+    },
+    getById: (id: string) => `${api}committee-members/${id}`,
+    add: `${api}committee-members`,
+    update: (id: string) => `${api}committee-members/${id}`,
+    delete: (id: string) => `${api}committee-members/${id}`,
+  },
   role: {
     get: `${api}roles`,
     getById: (id: string) => `${api}roles/${id}`,
