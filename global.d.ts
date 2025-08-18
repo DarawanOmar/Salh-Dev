@@ -8,7 +8,10 @@ type SearchParamsTypeUse = {
 type ParamsTypeUse = {
   params: paramsType;
 };
-
+type ParamsSearchParamsTypeUser = {
+  params: paramsType;
+  searchParams: searchParamsType;
+};
 type ResponseData<T> = {
   data: T;
   meta: {
