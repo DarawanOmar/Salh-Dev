@@ -8,7 +8,7 @@ import { Committee } from "@/app/(root)/committee/_type";
 export const getAllRoles = async () => {
   const result = await apiRequest<Role[]>({
     method: "GET",
-    url: EndPoints.role.get,
+    url: EndPoints.role.getWithoutPagination,
   });
   return result;
 };

@@ -214,7 +214,21 @@ export const EndPoints = {
     delete: (id: string) => `${api}charitables/${id}`,
   },
   role: {
-    get: `${api}roles`,
+    get: (page: string, search: string) => {
+      const queryParams = [];
+
+      if (page) {
+        queryParams.push(`page=${page}`);
+      }
+      if (search) {
+        queryParams.push(`search=${search}`);
+      }
+
+      const queryString =
+        queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
+      return `${api}charitables?page=${page}&per_page=10${queryString}`;
+    },
+    getWithoutPagination: `${api}roles`,
     getById: (id: string) => `${api}roles/${id}`,
     add: `${api}roles`,
     update: (id: string) => `${api}roles/${id}`,
