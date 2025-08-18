@@ -59,6 +59,8 @@ export const EndPoints = {
         queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
       return `${api}users?page=${page}&per_page=10${queryString}`;
     },
+    getWithoutPagination: `${api}users`,
+
     getById: (id: string) => `${api}users/${id}`,
     add: `${api}users`,
     update: (id: string) => `${api}users/${id}`,
@@ -146,6 +148,27 @@ export const EndPoints = {
     update: (id: string) => `${api}committee-members/${id}`,
     delete: (id: string) => `${api}committee-members/${id}`,
   },
+  income_revenue: {
+    get: (page: string, search: string) => {
+      const queryParams = [];
+
+      if (page) {
+        queryParams.push(`page=${page}`);
+      }
+      if (search) {
+        queryParams.push(`search=${search}`);
+      }
+
+      const queryString =
+        queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
+      return `${api}moneyReceived?page=${page}&per_page=10${queryString}`;
+    },
+    getWithoutPagination: `${api}moneyReceived`,
+    getById: (id: string) => `${api}moneyReceived/${id}`,
+    add: `${api}moneyReceived`,
+    update: (id: string) => `${api}moneyReceived/${id}`,
+    delete: (id: string) => `${api}moneyReceived/${id}`,
+  },
   charitable: {
     get: (page: string, search: string) => {
       const queryParams = [];
@@ -161,6 +184,8 @@ export const EndPoints = {
         queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
       return `${api}charitables?page=${page}&per_page=10${queryString}`;
     },
+    getWithoutPagination: `${api}charitables`,
+
     getById: (id: string) => `${api}charitables/${id}`,
     add: `${api}charitables`,
     update: (id: string) => `${api}charitables/${id}`,

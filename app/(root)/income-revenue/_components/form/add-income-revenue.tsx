@@ -3,31 +3,29 @@ import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import { Form, FormField, FormLabel } from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { DialogClose } from "@/components/ui/dialog";
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import LoadingSpinner from "@/components/reusable/loadingSpinner";
 import { TextField } from "@/components/reusable/input-form-reusable";
-
-import { AddOwning, AddOwningType } from "@/app/(root)/assisted/_type";
 import {
-  AddFamilyMemberAction,
-  AddOwningAction,
-  updateFamilyMemberAction,
-  updateOwningAction,
-} from "@/app/(root)/assisted/_action";
-import { DatePickerForm } from "@/components/reusable/date-picker-form";
+  addIncomeRevenueAction,
+  updateIncomeRevenueAction,
+} from "../../_action";
+import { addIncomeRevenue, addIncomeRevenueType } from "../../_type";
+import { typeOfCurrency } from "@/app/(root)/assisted/[id]/_components/page/owning/form/add-owning";
 import { SelectFormField } from "@/components/reusable/reusable-select";
+import { useGetCharitable, useGetUsers } from "@/hooks/use-fetch-queries";
 
 type Props = {
   isEdit?: boolean;
-  info?: AddOwningType;
+  info?: addIncomeRevenueType;
   handleClose?: () => void;
   id?: string;
 };
 
-export default function AddOwningForm({
+export default function AddCharitableForm({
   isEdit,
   info,
   handleClose,
@@ -35,16 +33,21 @@ export default function AddOwningForm({
 }: Props) {
   const [pendding, setPendding] = useTransition();
   const router = useRouter();
-  const form = useForm<AddOwningType>({
-    resolver: zodResolver(AddOwning),
+  const form = useForm<addIncomeRevenueType>({
+    resolver: zodResolver(addIncomeRevenue),
     defaultValues: getDefaultValues(info),
   });
-
-  function onSubmit(values: AddOwningType) {
+  const { data: charitable, isLoading, isError } = useGetCharitable();
+  const {
+    data: users,
+    isLoading: usersLoading,
+    isError: usersError,
+  } = useGetUsers();
+  function onSubmit(values: addIncomeRevenueType) {
     setPendding(async () => {
       const result = isEdit
-        ? await updateOwningAction(id as string, values)
-        : await AddOwningAction(values);
+        ? await updateIncomeRevenueAction(id as string, values)
+        : await addIncomeRevenueAction(values);
       if (result.success) {
         toast.success(result.message);
         handleClose && handleClose();
@@ -59,38 +62,56 @@ export default function AddOwningForm({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="px-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <TextField
-            control={form.control}
-            name="typeOfOwning"
-            label="خاوەنی چییە"
-            placeholder="خاوەنی چییە"
-          />
-          <TextField
-            control={form.control}
-            name="price"
-            label="نرخ"
-            placeholder="نرخ"
-          />
-
           <SelectFormField
             control={form.control}
-            name="typeOfCurrency"
+            name="charitableId"
+            placeholder="خــێـــرخــواز هەڵبژێرە"
+            label={"خــێـــرخــواز"}
+            isError={isError}
+            isLoading={isLoading}
+            options={
+              charitable?.data?.map((item) => {
+                return {
+                  label: item.fullName,
+                  value: item.id,
+                };
+              }) || []
+            }
+          />
+          <TextField
+            control={form.control}
+            name="amount"
+            label="بڕی پـــارە"
+            placeholder="بڕی پـــارە"
+          />
+          <SelectFormField
+            control={form.control}
+            name="currencyType"
             placeholder="جۆری پارە هەڵبژێرە"
             label={"پارە"}
             options={typeOfCurrency}
           />
-
-          <TextField
+          <SelectFormField
             control={form.control}
-            name="description"
-            label="وەسف"
-            placeholder="وەسف"
+            name="userId"
+            placeholder="بەکــارهێنەر هەڵبژێرە"
+            label={"بەکــارهێنەر"}
+            isError={usersError}
+            isLoading={usersLoading}
+            options={
+              users?.data?.map((item) => {
+                return {
+                  label: item.fullName,
+                  value: item.id,
+                };
+              }) || []
+            }
           />
           <TextField
             control={form.control}
             name="note"
-            label="تێبینی"
-            placeholder="تێبینی"
+            label="سەرنج"
+            placeholder="سەرنج"
           />
         </div>
 
@@ -109,26 +130,15 @@ export default function AddOwningForm({
   );
 }
 
-const getDefaultValues = (values: Partial<AddOwningType> = {}) => {
-  const defaultValues: AddOwningType = {
-    description: "",
-    headMemberId: "",
+const getDefaultValues = (values: Partial<addIncomeRevenueType> = {}) => {
+  const defaultValues: addIncomeRevenueType = {
+    amount: "",
+    charitableId: "",
+    currencyType: "",
     note: "",
-    price: "",
-    typeOfCurrency: "",
-    typeOfOwning: "",
+    userId: "",
+    safeId: "",
   };
 
   return { ...defaultValues, ...values };
 };
-
-export const typeOfCurrency = [
-  {
-    label: "دیناری عێراقی",
-    value: "IQD",
-  },
-  {
-    label: "دۆلاری ئەمریکی",
-    value: "USD",
-  },
-];

@@ -12,7 +12,7 @@ import { SelectFormField } from "@/components/reusable/reusable-select";
 import {
   useGetCommitteesWithoutPagination,
   useGetRole,
-} from "@/hooks/use-role";
+} from "@/hooks/use-fetch-queries";
 import {
   AddCommitteeAssistedAction,
   updateCommitteeAssistedAction,

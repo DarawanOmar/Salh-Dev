@@ -13,7 +13,7 @@ import { addUser, addUserType } from "../../_type";
 import { addUserAction, updateUserAction } from "../../_action";
 import { SelectFormField } from "@/components/reusable/reusable-select";
 import { TabFormFeild } from "@/components/reusable/tab-form-feild";
-import { useGetRole } from "@/hooks/use-role";
+import { useGetRole } from "@/hooks/use-fetch-queries";
 
 type filmFormProps = {
   isEdit?: boolean;
