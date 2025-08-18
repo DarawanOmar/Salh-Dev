@@ -23,8 +23,18 @@ import {
   UpdateAssistedAction,
 } from "../../../client-action";
 import { DatePickerForm } from "@/components/reusable/date-picker-form";
-import Map from "../map";
+import dynamic from "next/dynamic";
 import { SelectFormField } from "@/components/reusable/reusable-select";
+
+// Dynamic import for Map component to avoid SSR issues with Leaflet
+const Map = dynamic(() => import("../map"), {
+  ssr: false,
+  loading: () => (
+    <div className="h-[32vh] w-full bg-gray-100 rounded-[20px] flex items-center justify-center">
+      Loading Map...
+    </div>
+  ),
+});
 import Link from "next/link";
 
 type Props = {

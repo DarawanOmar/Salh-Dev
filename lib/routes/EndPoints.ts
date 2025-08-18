@@ -146,6 +146,26 @@ export const EndPoints = {
     update: (id: string) => `${api}committee-members/${id}`,
     delete: (id: string) => `${api}committee-members/${id}`,
   },
+  charitable: {
+    get: (page: string, search: string) => {
+      const queryParams = [];
+
+      if (page) {
+        queryParams.push(`page=${page}`);
+      }
+      if (search) {
+        queryParams.push(`search=${search}`);
+      }
+
+      const queryString =
+        queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
+      return `${api}charitables?page=${page}&per_page=10${queryString}`;
+    },
+    getById: (id: string) => `${api}charitables/${id}`,
+    add: `${api}charitables`,
+    update: (id: string) => `${api}charitables/${id}`,
+    delete: (id: string) => `${api}charitables/${id}`,
+  },
   role: {
     get: `${api}roles`,
     getById: (id: string) => `${api}roles/${id}`,

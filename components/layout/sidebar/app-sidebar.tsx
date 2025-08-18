@@ -18,6 +18,7 @@ import {
   Report,
   Roles,
   User,
+  Charitable,
 } from "@/public/icons";
 import { Menu } from "lucide-react";
 
@@ -84,6 +85,12 @@ const data = (permissions: string[]) => {
         url: "/owner-money",
         icon: Roles,
         isActive: permissions.includes("owner-money"),
+      },
+      {
+        title: "خــێـــرخــواز",
+        url: "/charitable",
+        icon: Charitable,
+        isActive: permissions.includes("charitable"),
       },
       {
         title: "پـــارەی هـــاتوو",

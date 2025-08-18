@@ -1,0 +1,18 @@
+import { z } from "zod";
+
+export const addCharitable = z.object({
+  fullName: z.string().min(1, { message: "ناو داخڵ بکە" }),
+  phone: z.string().min(1, { message: "ژمارەی مۆبایل داخڵ بکە" }),
+  address: z.string().min(1, { message: "ناونیشانی داخڵ بکە" }),
+  description: z.string().min(1, { message: "تێبینی داخڵ بکە" }),
+});
+
+export type addCharitableType = z.infer<typeof addCharitable>;
+
+export interface Charitable {
+  id: string;
+  fullName: string;
+  phone: string;
+  address: string;
+  description: string;
+}
