@@ -16,7 +16,6 @@ import { loginAction } from "../_actions";
 import { toast } from "sonner";
 import { login } from "@/lib/utils/cookies";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Eye, EyeClosed } from "lucide-react";
 
 export default function AuthForm() {
@@ -61,11 +60,7 @@ export default function AuthForm() {
             <FormItem>
               <FormLabel className="text-[14px]">ناونیشانی ئیمەیڵ</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="ناونیشانی ئیمەیڵ"
-                  className="md:w-[463px]"
-                  {...field}
-                />
+                <Input placeholder="ناونیشانی ئیمەیڵ" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -81,7 +76,6 @@ export default function AuthForm() {
                 <Input
                   type={showPassword ? "text" : "password"}
                   placeholder="وشەیی نهێنی"
-                  className="md:w-[463px]"
                   {...field}
                 />
               </FormControl>
@@ -96,14 +90,7 @@ export default function AuthForm() {
             </FormItem>
           )}
         />
-        <Label className="font-sirwan-regular text-[14px] text-[#5B7AE8] opacity-[60%]">
-          وشەی نهێنیت بیرچوە ؟
-        </Label>
-        <Button
-          type="submit"
-          className="mt-[40px] w-[351px] h-[52px] md:w-[463px]"
-          disabled={pendding}
-        >
+        <Button type="submit" className="w-full py-6" disabled={pendding}>
           {pendding ? "چوونەژوورەوە..." : "چوونەژوورەوە"}
         </Button>
       </form>
