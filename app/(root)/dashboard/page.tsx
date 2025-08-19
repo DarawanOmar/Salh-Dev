@@ -11,7 +11,7 @@ function Page() {
 
 export default Page;
 
-export async function FeedDashboard() {
+async function FeedDashboard() {
   // const data = await getDashboardData();
   return (
     <div className="px-3">
