@@ -1,6 +1,6 @@
 "use client";
 
-import { LogOut, LucideLoaderCircle, type LucideIcon } from "lucide-react";
+import { type LucideIcon } from "lucide-react";
 import {
   SidebarGroup,
   SidebarMenu,
@@ -11,7 +11,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import React from "react";
-import { logout } from "@/lib/utils/cookies";
 
 export function NavMain({
   items,
@@ -25,12 +24,7 @@ export function NavMain({
 }) {
   const { isMobile, setOpenMobile } = useSidebar();
   const pathName = usePathname();
-  const [pendding, startTransition] = React.useTransition();
-  const handleSignOut = () => {
-    startTransition(async () => {
-      logout();
-    });
-  };
+
   return (
     <SidebarGroup>
       <SidebarMenu>
@@ -54,20 +48,6 @@ export function NavMain({
             </SidebarMenuButton>
           </Link>
         ))}
-        <SidebarMenuButton
-          type="button"
-          onClick={handleSignOut}
-          tooltip="چوونەدەرەوە"
-          className="py-[18px] text-text  hover:bg-primary hover:text-white  transition-all duration-500"
-        >
-          {pendding ? (
-            <LucideLoaderCircle className="animate-spin transition-all duration-500" />
-          ) : (
-            <LogOut />
-          )}
-
-          <span className="text-[15px]"> چوونەدەرەوە</span>
-        </SidebarMenuButton>
       </SidebarMenu>
     </SidebarGroup>
   );

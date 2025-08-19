@@ -80,12 +80,7 @@ const data = (permissions: string[]) => {
         icon: Roles,
         isActive: permissions.includes("roles"),
       },
-      {
-        title: "خـــاوەنـــپــارەکان",
-        url: "/owner-money",
-        icon: Roles,
-        isActive: permissions.includes("owner-money"),
-      },
+
       {
         title: "خــێـــرخــواز",
         url: "/charitable",
