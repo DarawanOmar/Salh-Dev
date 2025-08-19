@@ -4,6 +4,7 @@ export const EndPoints = {
   login: `${api}auth/login`,
   register: `${api}auth/register`,
   logout: `${api}auth/logout`,
+  dashboard: `${api}dashboard`,
   family_member: {
     get: (page: string, search: string) => {
       const queryParams = [];

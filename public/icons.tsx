@@ -369,3 +369,53 @@ export const Charitable = ({ height = 21, width = 22 }: Props) => {
     />
   );
 };
+export const Increased = ({ height = 24, width = 24 }: Props) => {
+  return (
+    <CustomSvgIcon
+      color="green"
+      width={width}
+      height={height}
+      hoverColor="green"
+      viewBox="0 0 24 24"
+      svg={
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M16 6L18.29 8.29L13.41 13.17L9.41 9.17L2 16.59L3.41 18L9.41 12L13.41 16L19.71 9.71L22 12V6H16Z"
+            fill="#00B69B"
+          />
+        </svg>
+      }
+    />
+  );
+};
+export const Decreased = ({ height = 24, width = 24 }: Props) => {
+  return (
+    <CustomSvgIcon
+      color="green"
+      width={width}
+      height={height}
+      hoverColor="green"
+      viewBox="0 0 24 24"
+      svg={
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8 18L5.71 15.71L10.59 10.83L14.59 14.83L22 7.41L20.59 6L14.59 12L10.59 8L4.29 14.29L2 12L2 18L8 18Z"
+            fill="#B50F0F"
+          />
+        </svg>
+      }
+    />
+  );
+};
