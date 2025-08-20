@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import Card, { data } from "./_components/card";
+import CashCard from "./_components/card-cash";
 
 function Page() {
   return (
@@ -21,6 +22,9 @@ async function FeedDashboard() {
           <Card key={item.name} data={item} />
         ))}
       </div>
+      <Suspense fallback={<div>Loading CashCard...</div>}>
+        <CashCard />
+      </Suspense>
     </div>
   );
 }

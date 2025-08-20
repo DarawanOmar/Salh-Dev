@@ -115,7 +115,10 @@ export default function AddGivenForm({ isEdit, info, handleClose, id }: Props) {
             options={
               cashSafe?.data?.map((item) => {
                 return {
-                  label: item.name,
+                  label:
+                    item.name === "Main Safe"
+                      ? "قــاســـەی ســـەرەکــی"
+                      : "قــاســـەی لاوەکـــی",
                   value: item.id,
                 };
               }) || []

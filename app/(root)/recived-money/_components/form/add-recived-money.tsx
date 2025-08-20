@@ -124,7 +124,10 @@ export default function AddRecivedMoneyForm({
             options={
               cashSafe?.data?.map((item) => {
                 return {
-                  label: item.name,
+                  label:
+                    item.name === "Main Safe"
+                      ? "قــاســـەی ســـەرەکــی"
+                      : "قــاســـەی لاوەکـــی",
                   value: item.id,
                 };
               }) || []

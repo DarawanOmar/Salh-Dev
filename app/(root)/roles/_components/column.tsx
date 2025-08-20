@@ -16,6 +16,8 @@ import { Role } from "../_type";
 import { format } from "date-fns";
 import AddRoleForm from "./form/add-role";
 import { deleteRoleAction } from "../_action";
+import { Branch } from "@/public/icons";
+import ActivePermission from "./form/active-permission";
 
 const column: ColumnDef<Role>[] = [
   {
@@ -51,12 +53,25 @@ const column: ColumnDef<Role>[] = [
       return (
         <div className="">
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreVertical className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
+            <div className="flex justify-end items-center gap-5">
+              <CustomDialog
+                isFreshButtonPass
+                button={
+                  <Button>
+                    <Branch />
+                  </Button>
+                }
+                title={`ڕێــکــخـسـتـنی ڕۆڵ بــۆ ${row.original?.name}`}
+              >
+                <ActivePermission roleId={id} />
+              </CustomDialog>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <span className="sr-only">Open menu</span>
+                  <MoreVertical className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+            </div>
             <DropdownMenuContent className="space-y-1" align="end">
               <CustomDialog
                 open={open}
