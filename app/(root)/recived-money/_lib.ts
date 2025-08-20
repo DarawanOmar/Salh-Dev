@@ -5,7 +5,7 @@ import { RecivedMoney } from "./_type";
 export const getAllRecivedMoney = async (page: string, search: string) => {
   const result = await apiRequest<ResponseData<RecivedMoney[]>>({
     method: "GET",
-    url: EndPoints.income_revenue.get(page, search),
+    url: EndPoints.recived_money.get(page, search),
   });
   return result;
 };
@@ -13,7 +13,7 @@ export const getAllRecivedMoney = async (page: string, search: string) => {
 export const getOneRecivedMoney = async (id: string) => {
   const result = await apiRequest<RecivedMoney>({
     method: "GET",
-    url: EndPoints.income_revenue.getById(id),
+    url: EndPoints.recived_money.getById(id),
   });
   return result;
 };

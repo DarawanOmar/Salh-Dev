@@ -23,7 +23,7 @@ function ReusableDeleteDailog({
   actionDelete,
   id,
   classButton,
-  title = "دڵنیای لە سڕینەوەی فیلم!",
+  title = "دڵنیای لە سڕینەوەی !",
   isDeActive,
   ...props
 }: DialogModalProps) {
@@ -39,7 +39,7 @@ function ReusableDeleteDailog({
       e.preventDefault();
       const res = await actionDelete(id);
       if (res.success) {
-        toast.success(res.message);
+        toast.success("بە سەرکەوتووی سڕینەوە کرا");
         handleClose();
         router.refresh();
       } else {

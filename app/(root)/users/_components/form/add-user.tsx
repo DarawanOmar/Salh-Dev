@@ -43,7 +43,9 @@ export default function AddUser({
         ? await updateUserAction(id as string, values)
         : await addUserAction(values);
       if (result.success) {
-        toast.success(result.message);
+        toast.success(
+          isEdit ? "بە سەرکەوتووی گۆرانکاری کرا" : "بە سەرکەوتووی دروستکرا"
+        );
         handleClose && handleClose();
         router.refresh();
       } else {
@@ -81,6 +83,22 @@ export default function AddUser({
             label="ژمارەی مۆبایل"
             placeholder="ژمارەی مۆبایل"
           />
+          <SelectFormField
+            control={form.control}
+            name="roleId"
+            placeholder="ڕۆڵ هەڵبژێرە"
+            label={"ڕۆڵ"}
+            isError={isError}
+            isLoading={isLoading}
+            options={
+              roles?.data?.data?.map((item) => {
+                return {
+                  label: item.name,
+                  value: item.id,
+                };
+              }) || []
+            }
+          />
           <TextField
             control={form.control}
             name="address"
@@ -101,7 +119,7 @@ export default function AddUser({
             label="سەرنج"
             placeholder="سەرنج"
           />
-          <TabFormFeild
+          {/* <TabFormFeild
             control={form.control}
             name="status"
             label={"دۆخ"}
@@ -110,23 +128,7 @@ export default function AddUser({
               { value: "true", label: "چــالاک" },
               { value: "false", label: "نــاچـــالاک" },
             ]}
-          />
-          <SelectFormField
-            control={form.control}
-            name="roleId"
-            placeholder="ڕۆڵ هەڵبژێرە"
-            label={"ڕۆڵ"}
-            isError={isError}
-            isLoading={isLoading}
-            options={
-              roles?.data?.map((item) => {
-                return {
-                  label: item.name,
-                  value: item.id,
-                };
-              }) || []
-            }
-          />
+          /> */}
         </div>
 
         <div className="grid grid-cols-2 gap-10 mt-10">
@@ -151,9 +153,9 @@ const getDefaultValues = (values: Partial<addUserType> = {}) => {
     password: "",
     address: "",
     fullName: "",
-    note: "",
     phone: "",
     roleId: "",
+    note: "",
   };
 
   return { ...defaultValues, ...values };

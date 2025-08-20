@@ -35,7 +35,6 @@ async function FeedGiven({ searchParams }: SearchParamsTypeUse) {
   ]);
 
   const getGiven = await getAllGiven(page, search);
-
   return (
     <DataTable
       currentPage={+page}

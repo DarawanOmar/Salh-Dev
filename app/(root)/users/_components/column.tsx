@@ -138,13 +138,13 @@ const column: ColumnDef<User>[] = [
                   handleClose={handleClose}
                   info={{
                     roleId: row?.original?.role?.id || "",
-                    email: row?.original?.email,
-                    name: row?.original?.name,
+                    email: row?.original?.email || "",
+                    name: row?.original?.name || "",
                     password: "",
-                    address: row.original?.address,
-                    fullName: row.original?.fullName,
-                    note: row.original?.note,
-                    phone: row.original?.phone,
+                    address: row.original?.address || "",
+                    fullName: row.original?.fullName || "",
+                    note: row.original?.note || "",
+                    phone: row.original?.phone || "",
                   }}
                 />
               </CustomDialog>

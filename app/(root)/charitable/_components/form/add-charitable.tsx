@@ -38,7 +38,9 @@ export default function AddCharitableForm({
         ? await updateCharitableAction(id as string, values)
         : await addCharitableAction(values);
       if (result.success) {
-        toast.success(result.message);
+        toast.success(
+          isEdit ? "بە سەرکەوتووی گۆرانکاری کرا" : "بە سەرکەوتووی دروستکرا"
+        );
         handleClose && handleClose();
         router.refresh();
       } else {

@@ -1,11 +1,10 @@
-import axios from "axios";
+import { instance } from "@/lib/utils/api-reqiest";
 import { addUCommitteeType } from "./_type";
 import { EndPoints } from "@/lib/routes/EndPoints";
 
 export const addCommitte = async (data: addUCommitteeType) => {
   try {
-    const res = await axios.post(EndPoints.commitee.add, data);
-
+    const res = await instance.post(EndPoints.commitee.add, data);
     return {
       success: true,
       message: res.data.message,
@@ -26,8 +25,7 @@ export const addCommitte = async (data: addUCommitteeType) => {
 
 export const updateCommitte = async (id: string, data: addUCommitteeType) => {
   try {
-    const res = await axios.patch(EndPoints.commitee.update(id), data);
-
+    const res = await instance.patch(EndPoints.commitee.update(id), data);
     return {
       success: true,
       message: res.data.message,

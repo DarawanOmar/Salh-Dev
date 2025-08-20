@@ -32,3 +32,13 @@ export async function getParams<T extends string>(
 
   return result;
 }
+
+export const dataFilteredSend = (data: any) => {
+  const dataFilteredSend: any = {};
+  Object.entries(data).forEach(([key, value]) => {
+    if (value) {
+      dataFilteredSend[key] = value;
+    }
+  });
+  return dataFilteredSend;
+};

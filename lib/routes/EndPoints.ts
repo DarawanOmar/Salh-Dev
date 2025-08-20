@@ -88,6 +88,48 @@ export const EndPoints = {
     update: (id: string) => `${api}head-members/${id}`,
     delete: (id: string) => `${api}head-members/${id}`,
   },
+  cash_safe: {
+    get: (page: string, search: string) => {
+      const queryParams = [];
+
+      if (page) {
+        queryParams.push(`page=${page}`);
+      }
+      if (search) {
+        queryParams.push(`search=${search}`);
+      }
+
+      const queryString =
+        queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
+      return `${api}safe?page=${page}&per_page=10${queryString}`;
+    },
+    getWithoutPagination: `${api}safe`,
+    getById: (id: string) => `${api}safe/${id}`,
+    add: `${api}safe`,
+    update: (id: string) => `${api}safe/${id}`,
+    delete: (id: string) => `${api}safe/${id}`,
+  },
+  documents: {
+    get: (page: string, search: string) => {
+      const queryParams = [];
+
+      if (page) {
+        queryParams.push(`page=${page}`);
+      }
+      if (search) {
+        queryParams.push(`search=${search}`);
+      }
+
+      const queryString =
+        queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
+      return `${api}documents?page=${page}&per_page=10${queryString}`;
+    },
+    getWithoutPagination: `${api}documents`,
+    getById: (id: string) => `${api}documents/${id}`,
+    add: `${api}documents`,
+    update: (id: string) => `${api}documents/${id}`,
+    delete: (id: string) => `${api}documents/${id}`,
+  },
   assisted_image: {
     get: (page: string, search: string) => {
       const queryParams = [];
@@ -108,7 +150,7 @@ export const EndPoints = {
     update: (id: string) => `${api}houseImages/${id}`,
     delete: (id: string) => `${api}houseImages/${id}`,
   },
-  assisted: {
+  head_members: {
     get: (page: string, search: string) => {
       const queryParams = [];
 
@@ -123,6 +165,7 @@ export const EndPoints = {
         queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
       return `${api}head-members?page=${page}&per_page=10${queryString}`;
     },
+    getWithoutPagination: `${api}head-members`,
     getById: (id: string) => `${api}head-members/${id}`,
     add: `${api}head-members`,
     update: (id: string) => `${api}head-members/${id}`,
@@ -143,14 +186,14 @@ export const EndPoints = {
         queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
       return `${api}committee-members?page=${page}&per_page=10${queryString}`;
     },
-    getWithoutPagination: `${api}head-members`,
+    getWithoutPagination: `${api}committee-members`,
 
     getById: (id: string) => `${api}committee-members/${id}`,
     add: `${api}committee-members`,
     update: (id: string) => `${api}committee-members/${id}`,
     delete: (id: string) => `${api}committee-members/${id}`,
   },
-  income_revenue: {
+  recived_money: {
     get: (page: string, search: string) => {
       const queryParams = [];
 
@@ -163,13 +206,13 @@ export const EndPoints = {
 
       const queryString =
         queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
-      return `${api}moneyReceived?page=${page}&per_page=10${queryString}`;
+      return `${api}money-receives?page=${page}&per_page=10${queryString}`;
     },
-    getWithoutPagination: `${api}moneyReceived`,
-    getById: (id: string) => `${api}moneyReceived/${id}`,
-    add: `${api}moneyReceived`,
-    update: (id: string) => `${api}moneyReceived/${id}`,
-    delete: (id: string) => `${api}moneyReceived/${id}`,
+    getWithoutPagination: `${api}money-receives`,
+    getById: (id: string) => `${api}money-receives/${id}`,
+    add: `${api}money-receives`,
+    update: (id: string) => `${api}money-receives/${id}`,
+    delete: (id: string) => `${api}money-receives/${id}`,
   },
   money_given: {
     get: (page: string, search: string) => {
@@ -184,13 +227,13 @@ export const EndPoints = {
 
       const queryString =
         queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
-      return `${api}money_given?page=${page}&per_page=10${queryString}`;
+      return `${api}money-given?page=${page}&per_page=10${queryString}`;
     },
-    getWithoutPagination: `${api}money_given`,
-    getById: (id: string) => `${api}money_given/${id}`,
-    add: `${api}money_given`,
-    update: (id: string) => `${api}money_given/${id}`,
-    delete: (id: string) => `${api}money_given/${id}`,
+    getWithoutPagination: `${api}money-given`,
+    getById: (id: string) => `${api}money-given/${id}`,
+    add: `${api}money-given`,
+    update: (id: string) => `${api}money-given/${id}`,
+    delete: (id: string) => `${api}money-given/${id}`,
   },
   charitable: {
     get: (page: string, search: string) => {
@@ -227,7 +270,7 @@ export const EndPoints = {
 
       const queryString =
         queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
-      return `${api}charitables?page=${page}&per_page=10${queryString}`;
+      return `${api}roles?page=${page}&per_page=10${queryString}`;
     },
     getWithoutPagination: `${api}roles`,
     getById: (id: string) => `${api}roles/${id}`,

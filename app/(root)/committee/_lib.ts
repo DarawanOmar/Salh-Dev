@@ -20,7 +20,7 @@ export const getAllCommiteeWithoutPagination = async () => {
 export const getOneCommitee = async (id: string) => {
   const result = await apiRequest<Committee>({
     method: "GET",
-    url: EndPoints.user.getById(id),
+    url: EndPoints.commitee.getById(id),
   });
   return result;
 };

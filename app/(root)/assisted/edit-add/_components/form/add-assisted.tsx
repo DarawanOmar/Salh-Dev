@@ -57,7 +57,9 @@ export default function AddAssisted({ isEdit, info, id }: Props) {
         ? await UpdateAssistedAction(id as string, values)
         : await AddAssistedAction(values);
       if (result.success) {
-        toast.success(result.message);
+        toast.success(
+          isEdit ? "بە سەرکەوتووی گۆرانکاری کرا" : "بە سەرکەوتووی دروستکرا"
+        );
         router.refresh();
       } else {
         toast.error(result.message);

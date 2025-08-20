@@ -94,7 +94,7 @@ const data = (permissions: string[]) => {
         isActive: permissions.includes("recived-money"),
       },
       {
-        title: "پـــارەی دەچـــوو",
+        title: "پـــارەی دەرچـــوو",
         url: "/given-money",
         icon: OutGoRevenue,
         isActive: permissions.includes("given-money"),

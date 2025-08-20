@@ -33,7 +33,9 @@ export default function AddRoleForm({ isEdit, info, handleClose, id }: Props) {
         ? await updateRoleAction(id as string, values)
         : await addRoleAction(values);
       if (result.success) {
-        toast.success(result.message);
+        toast.success(
+          isEdit ? "بە سەرکەوتووی گۆرانکاری کرا" : "بە سەرکەوتووی دروستکرا"
+        );
         handleClose && handleClose();
         router.refresh();
       } else {

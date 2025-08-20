@@ -21,36 +21,40 @@ import { deleteRecivedMoneyAction } from "../_action";
 
 const column: ColumnDef<RecivedMoney>[] = [
   {
-    accessorKey: "fullName",
+    accessorKey: "charitable.fullName",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="ناوی تەواو" />
     ),
     cell: ({ row }) => {
-      return <span className="text-sm text-gray-500">{row?.original?.id}</span>;
-    },
-  },
-
-  {
-    accessorKey: "createdAt",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="بەرواری داخڵکردن" />
-    ),
-    cell: ({ row }) => {
       return (
-        <span className="">
-          {format(row?.original?.createdAt || new Date(), "dd/MM/yyyy")}
+        <span className="text-sm text-gray-500">
+          {row?.original?.charitable?.fullName}
         </span>
       );
     },
   },
 
   {
-    accessorKey: "userId",
+    accessorKey: "insertedAt",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="بەرواری داخڵکردن" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <span className="">
+          {format(row?.original?.insertedAt || new Date(), "dd/MM/yyyy")}
+        </span>
+      );
+    },
+  },
+
+  {
+    accessorKey: "user.fullName",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="بەکارهێنەر" />
     ),
     cell: ({ row }) => {
-      return <span className="">{row?.original?.userId || "-"}</span>;
+      return <span className="">{row?.original?.user?.fullName || "-"}</span>;
     },
   },
   {
@@ -80,22 +84,6 @@ const column: ColumnDef<RecivedMoney>[] = [
       return <span className="">{row?.original?.note || "-"}</span>;
     },
   },
-  {
-    accessorKey: "profile",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="پروفایل" />
-    ),
-    cell: ({ row }) => {
-      return (
-        <Link href={`/charitable/${row?.original?.id}`}>
-          <Button size={"sm"} className="rounded h-8 py-0 px-2">
-            بــیــنــین
-          </Button>
-        </Link>
-      );
-    },
-  },
-
   {
     id: "actions",
     cell: function CellComponent({ row }) {
@@ -130,17 +118,18 @@ const column: ColumnDef<RecivedMoney>[] = [
                   isEdit
                   handleClose={handleClose}
                   info={{
-                    amount: row.original?.amount,
-                    currencyType: row.original?.currencyType,
-                    note: row.original?.note,
-                    userId: row.original?.userId,
-                    safeId: row.original?.safeId,
+                    amount: +row.original?.amount || 0,
+                    currencyType: row.original?.currencyType || "",
+                    note: row.original?.note || "",
+                    charitableId: row.original.charitableId || "",
+                    userId: row.original?.userId || "",
+                    safeId: row.original?.safeId || "",
                   }}
                 />
               </CustomDialog>
               <hr className="border-gray" />
               <ReusableDeleteDailog
-                title="دڵنیایت لە سڕینەوەی بەکارهێنەر"
+                title="دڵنیایت لە سڕینەوەی پارەی هاتوو"
                 isFreshButtonPass
                 button={
                   <button className="flex gap-2 items-center font-sirwan_reguler  hover:bg-primary hover:text-white transition-all duration-500 p-2 rounded-b-lg w-full ">

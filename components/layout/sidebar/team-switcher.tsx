@@ -6,9 +6,19 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { LogOutIcon } from "lucide-react";
 import logo from "@/public/logo.png";
+import { logout } from "@/lib/utils/cookies";
+import { LuLoaderCircle } from "react-icons/lu";
 
 export function TeamSwitcher({ isHead }: { isHead: boolean }) {
   const { open } = useSidebar();
+  const [pendding, startTransition] = React.useTransition();
+
+  const handleSignOut = () => {
+    startTransition(async () => {
+      logout();
+    });
+  };
+
   return isHead ? (
     <>
       <div className="flex justify-center items-center my-5">
@@ -51,11 +61,15 @@ export function TeamSwitcher({ isHead }: { isHead: boolean }) {
         <span className="text-start">Admin</span>
         <span>admin@gmail.com</span>
       </div>
-      <div className="mr-auto">
-        <LogOutIcon
-          className="rotate-180 hover:text-destructive cursor-pointer"
-          height={16}
-        />
+      <div onClick={handleSignOut} className="mr-auto">
+        {pendding ? (
+          <LuLoaderCircle className="animate-spin transition-all duration-500" />
+        ) : (
+          <LogOutIcon
+            className="rotate-180 hover:text-destructive cursor-pointer"
+            height={16}
+          />
+        )}
       </div>
     </SidebarMenuButton>
   );

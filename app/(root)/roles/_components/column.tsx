@@ -21,12 +21,10 @@ const column: ColumnDef<Role>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="ناوی تەواو" />
+      <DataTableColumnHeader column={column} title="دەسەڵات" />
     ),
     cell: ({ row }) => {
-      return (
-        <span className="text-sm text-gray-500">{row?.original?.name}</span>
-      );
+      return <span className="text-sm ">{row?.original?.name}</span>;
     },
   },
 

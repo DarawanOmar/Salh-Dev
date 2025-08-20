@@ -7,17 +7,17 @@ import { addGivenType } from "./_type";
 export const addGivenAction = async (data: addGivenType) => {
   const result = await apiRequest({
     method: "POST",
-    url: EndPoints.income_revenue.add,
+    url: EndPoints.money_given.add,
     data,
   });
-  console.log("URL => ", EndPoints.income_revenue.add);
+  console.log("URL => ", EndPoints.money_given.add);
   console.log("object", result);
   return result;
 };
 export const updateGivenAction = async (id: string, data: addGivenType) => {
   const result = await apiRequest({
     method: "PATCH",
-    url: EndPoints.income_revenue.update(id),
+    url: EndPoints.money_given.update(id),
     data,
   });
   return result;
@@ -25,7 +25,7 @@ export const updateGivenAction = async (id: string, data: addGivenType) => {
 export const deleteGivenAction = async (id: string) => {
   const result = await apiRequest({
     method: "DELETE",
-    url: EndPoints.income_revenue.delete(id),
+    url: EndPoints.money_given.delete(id),
   });
   return result;
 };

@@ -14,10 +14,12 @@ import { addGiven, addGivenType } from "../../_type";
 import { typeOfCurrency } from "@/app/(root)/assisted/[id]/_components/page/owning/form/add-owning";
 import { SelectFormField } from "@/components/reusable/reusable-select";
 import {
-  useGetCharitable,
+  useGetCashSafe,
+  useGetDocuments,
   useGetHeadMember,
   useGetUsers,
 } from "@/hooks/use-fetch-queries";
+import { DatePickerForm } from "@/components/reusable/date-picker-form";
 
 type Props = {
   isEdit?: boolean;
@@ -29,23 +31,36 @@ type Props = {
 export default function AddGivenForm({ isEdit, info, handleClose, id }: Props) {
   const [pendding, setPendding] = useTransition();
   const router = useRouter();
+  console.log("Info", info);
   const form = useForm<addGivenType>({
     resolver: zodResolver(addGiven),
     defaultValues: getDefaultValues(info),
   });
   const { data: headMembers, isLoading, isError } = useGetHeadMember();
   const {
+    data: documents,
+    isLoading: documentsLoading,
+    isError: documentsError,
+  } = useGetDocuments();
+  const {
     data: users,
     isLoading: usersLoading,
     isError: usersError,
   } = useGetUsers();
+  const {
+    data: cashSafe,
+    isLoading: cashSafeLoading,
+    isError: cashSafeError,
+  } = useGetCashSafe();
   function onSubmit(values: addGivenType) {
     setPendding(async () => {
       const result = isEdit
         ? await updateGivenAction(id as string, values)
         : await addGivenAction(values);
       if (result.success) {
-        toast.success(result.message);
+        toast.success(
+          isEdit ? "بە سەرکەوتووی گۆرانکاری کرا" : "بە سەرکەوتووی دروستکرا"
+        );
         handleClose && handleClose();
         router.refresh();
       } else {
@@ -60,15 +75,63 @@ export default function AddGivenForm({ isEdit, info, handleClose, id }: Props) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <SelectFormField
             control={form.control}
+            name="documentIssue"
+            placeholder="بەڵــگـەنـامە هەڵبژێرە"
+            label={"بەڵــگـەنـامە"}
+            isError={documentsError}
+            isLoading={documentsLoading}
+            options={
+              documents?.data?.map((item) => {
+                return {
+                  label: item?.headMember?.fullName,
+                  value: item.id,
+                };
+              }) || []
+            }
+          />
+          <SelectFormField
+            control={form.control}
             name="headMemberId"
             placeholder="خــێـــرخــواز هەڵبژێرە"
             label={"خــێـــرخــواز"}
             isError={isError}
             isLoading={isLoading}
             options={
-              headMembers?.data?.map((item) => {
+              headMembers?.data?.data?.map((item) => {
+                return {
+                  label: item.fullName,
+                  value: item.id,
+                };
+              }) || []
+            }
+          />
+          <SelectFormField
+            control={form.control}
+            name="safeId"
+            placeholder="قــاســە هەڵبژێرە"
+            label={"قــاســە"}
+            isError={cashSafeError}
+            isLoading={cashSafeLoading}
+            options={
+              cashSafe?.data?.map((item) => {
                 return {
                   label: item.name,
+                  value: item.id,
+                };
+              }) || []
+            }
+          />
+          <SelectFormField
+            control={form.control}
+            name="userId"
+            placeholder="بەکــارهێنەر هەڵبژێرە"
+            label={"بەکــارهێنەر"}
+            isError={usersError}
+            isLoading={usersLoading}
+            options={
+              users?.data?.data?.map((item) => {
+                return {
+                  label: item.fullName,
                   value: item.id,
                 };
               }) || []
@@ -79,6 +142,7 @@ export default function AddGivenForm({ isEdit, info, handleClose, id }: Props) {
             name="amount"
             label="بڕی پـــارە"
             placeholder="بڕی پـــارە"
+            type="number"
           />
           <SelectFormField
             control={form.control}
@@ -87,22 +151,13 @@ export default function AddGivenForm({ isEdit, info, handleClose, id }: Props) {
             label={"پارە"}
             options={typeOfCurrency}
           />
-          <SelectFormField
+          <DatePickerForm
             control={form.control}
-            name="userId"
-            placeholder="بەکــارهێنەر هەڵبژێرە"
-            label={"بەکــارهێنەر"}
-            isError={usersError}
-            isLoading={usersLoading}
-            options={
-              users?.data?.map((item) => {
-                return {
-                  label: item.fullName,
-                  value: item.id,
-                };
-              }) || []
-            }
+            name="givenAt"
+            label="بەرواری پارەدان"
+            className="w-full"
           />
+
           <TextField
             control={form.control}
             name="transactionType"
@@ -134,13 +189,16 @@ export default function AddGivenForm({ isEdit, info, handleClose, id }: Props) {
 
 const getDefaultValues = (values: Partial<addGivenType> = {}) => {
   const defaultValues: addGivenType = {
-    amount: "",
+    documentIssue: "",
     headMemberId: "",
+    userId: "",
+    safeId: "",
+
+    amount: 0,
     currencyType: "",
     transactionType: "",
     note: "",
-    userId: "",
-    safeId: "",
+    givenAt: new Date(),
   };
 
   return { ...defaultValues, ...values };

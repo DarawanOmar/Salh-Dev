@@ -109,6 +109,18 @@ export interface Assisted {
   HouseDescription: HouseDescription[];
   Committee: Committee[];
 }
+export interface AssistedOnly
+  extends Omit<
+    Assisted,
+    | "MoneyGiven"
+    | "FamilyMember"
+    | "Owning"
+    | "Documents"
+    | "Videos"
+    | "HeadMemberDrug"
+    | "HouseDescription"
+    | "Committee"
+  > {}
 export interface FamilyMember {
   id: string;
   fullName: string;

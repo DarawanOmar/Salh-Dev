@@ -35,7 +35,7 @@ async function FeedRole({ searchParams }: SearchParamsTypeUse) {
   ]);
 
   const getRole = await getAllRole(page, search);
-
+  console.log("Role", getRole.data?.data);
   return (
     <DataTable
       currentPage={+page}

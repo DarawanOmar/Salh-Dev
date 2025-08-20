@@ -16,8 +16,8 @@ function ModalAddGiven() {
       onOpenChange={setOpen}
       classContent="max-w-4xl"
       icon={<Plus size={20} strokeWidth={2.5} className="max-sm:hidden" />}
-      text_button="زیادکردنی خــێـــرخــواز"
-      title="زیادکردنی خــێـــرخــواز"
+      text_button="زیادکردنی پــارەی دەرچــوو"
+      title="زیادکردنی پــارەی دەرچــوو"
     >
       <AddGivenForm handleClose={handleClose} />
     </CustomDialog>

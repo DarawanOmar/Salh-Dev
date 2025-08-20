@@ -7,7 +7,7 @@ import { apiRequest } from "@/lib/utils/axiosHandler";
 
 export async function loginAction(data: loginSchemaType) {
   try {
-    const res = await axios.post<loginType>(EndPoints.login, data);
+    const res = await axios.post(EndPoints.login, data);
     if (res.status === 200) {
       // const partTranslation: Record<string, string> = {
       //   buy: "purchase",

@@ -47,7 +47,9 @@ export default function AddCommitte({
         ? await updateCommitte(id as string, values)
         : await addCommitte(values);
       if (result.success) {
-        toast.success(result.message);
+        toast.success(
+          isEdit ? "بە سەرکەوتووی گۆرانکاری کرا" : "بە سەرکەوتووی دروستکرا"
+        );
         handleClose && handleClose();
         router.refresh();
       } else {

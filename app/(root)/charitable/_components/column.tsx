@@ -55,7 +55,11 @@ const column: ColumnDef<Charitable>[] = [
       <DataTableColumnHeader column={column} title="وەسف" />
     ),
     cell: ({ row }) => {
-      return <span className="">{row?.original?.description || "-"}</span>;
+      return (
+        <div className="text-wrap line-clamp-1 hover:line-clamp-none">
+          {row?.original?.description || "-"}
+        </div>
+      );
     },
   },
   {

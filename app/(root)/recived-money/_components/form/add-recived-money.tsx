@@ -13,7 +13,11 @@ import { addRecivedMoneyAction, updateRecivedMoneyAction } from "../../_action";
 import { addRecivedMoney, addRecivedMoneyType } from "../../_type";
 import { typeOfCurrency } from "@/app/(root)/assisted/[id]/_components/page/owning/form/add-owning";
 import { SelectFormField } from "@/components/reusable/reusable-select";
-import { useGetCharitable, useGetUsers } from "@/hooks/use-fetch-queries";
+import {
+  useGetCashSafe,
+  useGetCharitable,
+  useGetUsers,
+} from "@/hooks/use-fetch-queries";
 
 type Props = {
   isEdit?: boolean;
@@ -40,6 +44,11 @@ export default function AddRecivedMoneyForm({
     isLoading: usersLoading,
     isError: usersError,
   } = useGetUsers();
+  const {
+    data: cashSafe,
+    isLoading: cashSafeLoading,
+    isError: cashSafeError,
+  } = useGetCashSafe();
   function onSubmit(values: addRecivedMoneyType) {
     setPendding(async () => {
       const result = isEdit
@@ -67,7 +76,7 @@ export default function AddRecivedMoneyForm({
             isError={isError}
             isLoading={isLoading}
             options={
-              charitable?.data?.map((item) => {
+              charitable?.data?.data?.map((item) => {
                 return {
                   label: item.fullName,
                   value: item.id,
@@ -78,6 +87,7 @@ export default function AddRecivedMoneyForm({
           <TextField
             control={form.control}
             name="amount"
+            type="number"
             label="بڕی پـــارە"
             placeholder="بڕی پـــارە"
           />
@@ -96,9 +106,25 @@ export default function AddRecivedMoneyForm({
             isError={usersError}
             isLoading={usersLoading}
             options={
-              users?.data?.map((item) => {
+              users?.data?.data?.map((item) => {
                 return {
                   label: item.fullName,
+                  value: item.id,
+                };
+              }) || []
+            }
+          />
+          <SelectFormField
+            control={form.control}
+            name="safeId"
+            placeholder="قــاســە هەڵبژێرە"
+            label={"قــاســە"}
+            isError={cashSafeError}
+            isLoading={cashSafeLoading}
+            options={
+              cashSafe?.data?.map((item) => {
+                return {
+                  label: item.name,
                   value: item.id,
                 };
               }) || []
@@ -129,7 +155,7 @@ export default function AddRecivedMoneyForm({
 
 const getDefaultValues = (values: Partial<addRecivedMoneyType> = {}) => {
   const defaultValues: addRecivedMoneyType = {
-    amount: "",
+    amount: 0,
     charitableId: "",
     currencyType: "",
     note: "",

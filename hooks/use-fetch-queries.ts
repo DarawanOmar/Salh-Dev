@@ -4,6 +4,8 @@ import {
   getAllHeadMemberWithoutPagination,
   getAllRoles,
   getAllUsersWithoutPagination,
+  getCashSafe,
+  getDocuments,
 } from "@/query/lib";
 import { useQuery } from "@tanstack/react-query";
 
@@ -44,6 +46,22 @@ export const useGetUsers = () => {
   return useQuery({
     queryKey: ["getUserWithoutPagination"],
     queryFn: getAllUsersWithoutPagination,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    refetchOnWindowFocus: false,
+  });
+};
+export const useGetCashSafe = () => {
+  return useQuery({
+    queryKey: ["getCashSafe"],
+    queryFn: getCashSafe,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    refetchOnWindowFocus: false,
+  });
+};
+export const useGetDocuments = () => {
+  return useQuery({
+    queryKey: ["getDocuments"],
+    queryFn: getDocuments,
     staleTime: 1000 * 60 * 5, // 5 minutes
     refetchOnWindowFocus: false,
   });

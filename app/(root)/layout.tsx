@@ -5,6 +5,7 @@ import { AppSidebar } from "@/components/layout/sidebar/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import QueryClientProviderWrapper from "@/providers/query_provider_wrapper";
 import Header from "@/components/layout/header";
+import { fontSirwan } from "@/public/fonts";
 
 export default async function RootLayout({
   children,
@@ -17,14 +18,13 @@ export default async function RootLayout({
       <QueryClientProviderWrapper>
         <SidebarProvider>
           <AppSidebar session={user} side={"right"} />
-
           <div className="w-full px-2  ">
             <Header />
             <main>{children}</main>
             <Toaster
               dir="rtl"
               toastOptions={{
-                className: "font-sirwan-meduim",
+                className: `${fontSirwan.variable}  font-medium font-sirwan`,
               }}
               richColors
             />
