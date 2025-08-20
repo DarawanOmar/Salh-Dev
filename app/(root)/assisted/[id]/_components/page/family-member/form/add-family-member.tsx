@@ -6,18 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Form, FormField, FormLabel } from "@/components/ui/form";
 import { DialogClose } from "@/components/ui/dialog";
 import { useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import LoadingSpinner from "@/components/reusable/loadingSpinner";
 import { TextField } from "@/components/reusable/input-form-reusable";
-import {
-  FileInput,
-  FileSvgDraw,
-  FileUploader,
-  FileUploaderItem,
-} from "@/components/ui/file-upload";
-import { sizeImage } from "@/lib/globals";
-import Image from "next/image";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import {
   AddFamilyMember,
   AddFamilyMemberType,
@@ -42,6 +33,7 @@ export default function AddFamilyMemberForm({
   handleClose,
   id,
 }: Props) {
+  const params = useParams();
   const [pendding, setPendding] = useTransition();
   const router = useRouter();
   const form = useForm<AddFamilyMemberType>({
@@ -50,12 +42,15 @@ export default function AddFamilyMemberForm({
   });
 
   function onSubmit(values: AddFamilyMemberType) {
+    values.headMemberId = params.id as string;
     setPendding(async () => {
       const result = isEdit
         ? await updateFamilyMemberAction(id as string, values)
         : await AddFamilyMemberAction(values);
       if (result.success) {
-        toast.success(result.message);
+        toast.success(
+          isEdit ? "بە سەرکەوتووی گۆرانکاری کرا" : "بە سەرکەوتووی دروستکرا"
+        );
         handleClose && handleClose();
         router.refresh();
       } else {
@@ -149,11 +144,11 @@ const getDefaultValues = (values: Partial<AddFamilyMemberType> = {}) => {
 const genderType = [
   {
     label: "نــێـر",
-    value: "male",
+    value: "Male",
   },
   {
     label: "مــێ",
-    value: "female",
+    value: "Female",
   },
 ];
 const StatusType = [

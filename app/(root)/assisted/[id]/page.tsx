@@ -39,17 +39,16 @@ async function FeedPage({ params, searchParams }: ParamsSearchParamsTypeUser) {
   return (
     <div className="">
       <div className="flex flex-row items-center gap-3 my-5">
-        <Link
-          href={"/committee"}
-          className="hover:underline hover:text-primary"
-        >
-          لــیــژنــە
+        <Link href={"/assisted"} className="hover:underline hover:text-primary">
+          هــاوکــاریــکــراون
         </Link>
         <MdArrowBackIosNew />
         <h1>پڕۆفایل</h1>
       </div>
       <DetailInfo oneCommittee={oneCommittee.data || ({} as Assisted)} />
-      <TabChange />
+      <div className="max-w-3xl mx-auto mt-10">
+        <TabChange />
+      </div>
       {tab === "family_member" ? (
         <TableFamilyMember data={oneCommittee.data?.FamilyMember || []} />
       ) : tab === "owning" ? (

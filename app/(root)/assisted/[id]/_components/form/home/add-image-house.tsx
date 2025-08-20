@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormField, FormLabel } from "@/components/ui/form";
 import { DialogClose } from "@/components/ui/dialog";
 import { useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import LoadingSpinner from "@/components/reusable/loadingSpinner";
 import { SelectFormField } from "@/components/reusable/reusable-select";
 import {
@@ -31,7 +31,10 @@ import {
 import { sizeImage } from "@/lib/globals";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
-import { AddImageAssisted, UpdateImageAssisted } from "../../../client-action";
+import {
+  AddImageAssisted,
+  UpdateImageAssisted,
+} from "../../../../client-action";
 
 type Props = {
   isEdit?: boolean;
@@ -47,6 +50,7 @@ export default function AddImageHouse({
   id,
 }: Props) {
   const [pendding, setPendding] = useTransition();
+  const params = useParams();
   const router = useRouter();
   const form = useForm<AddImageType>({
     resolver: zodResolver(AddImage),
@@ -54,6 +58,8 @@ export default function AddImageHouse({
   });
 
   function onSubmit(values: AddImageType) {
+    values.headMemberId = params.id as string;
+
     setPendding(async () => {
       const result = isEdit
         ? await UpdateImageAssisted(id as string, values)

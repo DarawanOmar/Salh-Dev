@@ -49,7 +49,7 @@ export type AddFamilyMemberType = z.infer<typeof AddFamilyMember>;
 
 export const AddOwning = z.object({
   typeOfOwning: z.string().optional(),
-  price: z.string().optional(),
+  price: z.number(),
   typeOfCurrency: z.string().optional(),
   note: z.string().optional(),
   description: z.string().optional(),
@@ -74,8 +74,32 @@ export const AddImage = z.object({
     .nullable(),
   headMemberId: z.string().optional(),
 });
-
 export type AddImageType = z.infer<typeof AddImage>;
+
+export const AddVideo = z.object({
+  url: z
+    .instanceof(File) // Ensure the value is of type `File`
+    .refine((file) => file.size < sizeImage, {
+      message: "File size must be less than 1 MB",
+    })
+    .nullable(),
+  title: z.string().optional(),
+  description: z.string().optional(),
+  headMemberId: z.string().optional(),
+});
+export type AddVideoType = z.infer<typeof AddVideo>;
+
+export const AddDocument = z.object({
+  url: z
+    .instanceof(File) // Ensure the value is of type `File`
+    .refine((file) => file.size < sizeImage, {
+      message: "File size must be less than 1 MB",
+    })
+    .nullable(),
+  description: z.string().optional(),
+  headMemberId: z.string().optional(),
+});
+export type AddDocumentType = z.infer<typeof AddDocument>;
 
 export interface Assisted {
   id: string;

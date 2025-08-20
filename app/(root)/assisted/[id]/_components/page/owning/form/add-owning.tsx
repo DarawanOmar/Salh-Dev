@@ -3,21 +3,17 @@ import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import { Form, FormField, FormLabel } from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { DialogClose } from "@/components/ui/dialog";
 import { useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import LoadingSpinner from "@/components/reusable/loadingSpinner";
 import { TextField } from "@/components/reusable/input-form-reusable";
-
 import { AddOwning, AddOwningType } from "@/app/(root)/assisted/_type";
 import {
-  AddFamilyMemberAction,
   AddOwningAction,
-  updateFamilyMemberAction,
   updateOwningAction,
 } from "@/app/(root)/assisted/_action";
-import { DatePickerForm } from "@/components/reusable/date-picker-form";
 import { SelectFormField } from "@/components/reusable/reusable-select";
 
 type Props = {
@@ -33,6 +29,7 @@ export default function AddOwningForm({
   handleClose,
   id,
 }: Props) {
+  const params = useParams();
   const [pendding, setPendding] = useTransition();
   const router = useRouter();
   const form = useForm<AddOwningType>({
@@ -41,12 +38,15 @@ export default function AddOwningForm({
   });
 
   function onSubmit(values: AddOwningType) {
+    values.headMemberId = params.id as string;
     setPendding(async () => {
       const result = isEdit
         ? await updateOwningAction(id as string, values)
         : await AddOwningAction(values);
       if (result.success) {
-        toast.success(result.message);
+        toast.success(
+          isEdit ? "بە سەرکەوتووی گۆرانکاری کرا" : "بە سەرکەوتووی دروستکرا"
+        );
         handleClose && handleClose();
         router.refresh();
       } else {
@@ -59,16 +59,18 @@ export default function AddOwningForm({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="px-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <TextField
+          <SelectFormField
             control={form.control}
             name="typeOfOwning"
+            placeholder="جۆر هەڵبژێرە"
             label="خاوەنی چییە"
-            placeholder="خاوەنی چییە"
+            options={typeOfOwning}
           />
           <TextField
             control={form.control}
             name="price"
             label="نرخ"
+            type="number"
             placeholder="نرخ"
           />
 
@@ -114,7 +116,7 @@ const getDefaultValues = (values: Partial<AddOwningType> = {}) => {
     description: "",
     headMemberId: "",
     note: "",
-    price: "",
+    price: 0,
     typeOfCurrency: "",
     typeOfOwning: "",
   };
@@ -122,6 +124,24 @@ const getDefaultValues = (values: Partial<AddOwningType> = {}) => {
   return { ...defaultValues, ...values };
 };
 
+export const typeOfOwning = [
+  {
+    label: "خــانــوو",
+    value: "House",
+  },
+  {
+    label: "زەوی",
+    value: "Land",
+  },
+  {
+    label: "ســەیــارە",
+    value: "Vehicle",
+  },
+  {
+    label: "هــیــتــر",
+    value: "Other",
+  },
+];
 export const typeOfCurrency = [
   {
     label: "دیناری عێراقی",

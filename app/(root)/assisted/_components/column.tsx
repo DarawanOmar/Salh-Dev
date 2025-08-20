@@ -84,7 +84,7 @@ const column: ColumnDef<Assisted>[] = [
     ),
     cell: ({ row }) => {
       return (
-        <Link href={`/committee/${row?.original?.id}`}>
+        <Link href={`/assisted/${row?.original?.id}`}>
           <Button size={"sm"} className="rounded h-8 py-0 px-2">
             بــیــنــین
           </Button>

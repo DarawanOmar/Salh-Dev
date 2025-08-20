@@ -42,7 +42,7 @@ const columnFamilyMember: ColumnDef<Assisted["FamilyMember"][0]>[] = [
   {
     accessorKey: "dateOfBirth",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="بەروار" />
+      <DataTableColumnHeader column={column} title="بەرواری لە دایکبوون" />
     ),
     cell: ({ row }) => {
       return (
@@ -131,7 +131,8 @@ const columnFamilyMember: ColumnDef<Assisted["FamilyMember"][0]>[] = [
                   handleClose={handleClose}
                   info={{
                     fullName: row?.original?.fullName,
-                    dateOfBirth: row?.original?.dateOfBirth,
+                    dateOfBirth:
+                      new Date(row?.original?.dateOfBirth) || new Date(),
                     gender: row?.original?.gender,
                     isMarried: row?.original?.isMarried.toString(),
                     phone: row?.original?.phone,
@@ -143,7 +144,7 @@ const columnFamilyMember: ColumnDef<Assisted["FamilyMember"][0]>[] = [
               </CustomDialog>
               <hr className="border-gray" />
               <ReusableDeleteDailog
-                title="دڵنیایت لە سڕینەوەی بەکارهێنەر"
+                title="دڵنیایت لە سڕینەوەی ئەندامی خێزان"
                 isFreshButtonPass
                 button={
                   <button className="flex gap-2 items-center font-sirwan_reguler  hover:bg-primary hover:text-white transition-all duration-500 p-2 rounded-b-lg w-full ">

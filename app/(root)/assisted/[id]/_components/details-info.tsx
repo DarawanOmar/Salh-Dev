@@ -41,7 +41,7 @@ export const DetailInfo = ({ oneCommittee }: Props) => {
             <p>ژمارەی مۆبایلی دووەم : {oneCommittee?.phoneNumber2 || "نییە"}</p>
             <p>ژمارەی مۆبایلی خێزان : {oneCommittee?.phoneNumber1 || "نییە"}</p>
             <p>ناونیشانی ئێستای : {oneCommittee?.currentAddress || "نییە"}</p>
-            <p>ئەو شارەی لێدەژی : {oneCommittee?.currentAddress || "نییە"}</p>
+            <p>ئەو شارەی لێدەژی : {oneCommittee?.city || "نییە"}</p>
             <p>شوێنی لە دایکبوون : {oneCommittee?.placeOfBirth || "نییە"}</p>
             <p>
               بەرواری ناو تۆمارکردن :{" "}
@@ -72,7 +72,7 @@ export const DetailInfo = ({ oneCommittee }: Props) => {
               مووچەکەی : {oneCommittee?.salary || "نییە"}{" "}
               {oneCommittee?.currencyType === "USD" ? "دۆلار" : "دینار"}
             </p>
-            <p>
+            <p className="flex items-center gap-3">
               شوێن لەسەر نەخشە :{" "}
               <ShownMapLocation
                 lant={oneCommittee?.latitude || 0}

@@ -17,9 +17,9 @@ function TabChange() {
       defaultValue="family_member"
       dir="rtl"
     >
-      <TabsList className="w-full max-w-full  h-10 p-1">
+      <TabsList className="w-full max-w-full  h-12 p-2">
         {data.map((item, index) => (
-          <TabsTrigger key={index} value={item.value}>
+          <TabsTrigger key={index} value={item.value} className="h-9">
             {item.label}
           </TabsTrigger>
         ))}

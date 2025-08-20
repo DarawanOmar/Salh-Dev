@@ -18,12 +18,12 @@ export const EndPoints = {
 
       const queryString =
         queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
-      return `${api}users?page=${page}&per_page=10${queryString}`;
+      return `${api}family-members?page=${page}&per_page=10${queryString}`;
     },
-    getById: (id: string) => `${api}users/${id}`,
-    add: `${api}users`,
-    update: (id: string) => `${api}users/${id}`,
-    delete: (id: string) => `${api}users/${id}`,
+    getById: (id: string) => `${api}family-members/${id}`,
+    add: `${api}family-members`,
+    update: (id: string) => `${api}family-members/${id}`,
+    delete: (id: string) => `${api}family-members/${id}`,
   },
   owning: {
     get: (page: string, search: string) => {
@@ -38,12 +38,12 @@ export const EndPoints = {
 
       const queryString =
         queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
-      return `${api}owning?page=${page}&per_page=10${queryString}`;
+      return `${api}ownings?page=${page}&per_page=10${queryString}`;
     },
-    getById: (id: string) => `${api}owning/${id}`,
-    add: `${api}owning`,
-    update: (id: string) => `${api}owning/${id}`,
-    delete: (id: string) => `${api}owning/${id}`,
+    getById: (id: string) => `${api}ownings/${id}`,
+    add: `${api}ownings`,
+    update: (id: string) => `${api}ownings/${id}`,
+    delete: (id: string) => `${api}ownings/${id}`,
   },
   user: {
     get: (page: string, search: string) => {
@@ -257,6 +257,28 @@ export const EndPoints = {
     update: (id: string) => `${api}charitables/${id}`,
     delete: (id: string) => `${api}charitables/${id}`,
   },
+  videos: {
+    get: (page: string, search: string) => {
+      const queryParams = [];
+
+      if (page) {
+        queryParams.push(`page=${page}`);
+      }
+      if (search) {
+        queryParams.push(`search=${search}`);
+      }
+
+      const queryString =
+        queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
+      return `${api}videos?page=${page}&per_page=10${queryString}`;
+    },
+    getWithoutPagination: `${api}videos`,
+    getById: (id: string) => `${api}videos/${id}`,
+    add: `${api}videos`,
+    update: (id: string) => `${api}videos/${id}`,
+    delete: (id: number) => `${api}videos/${id}`,
+  },
+
   role: {
     get: (page: string, search: string) => {
       const queryParams = [];

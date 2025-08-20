@@ -1,10 +1,12 @@
 import React from "react";
 import { Assisted } from "../../_type";
 import { MdArrowBackIosNew } from "react-icons/md";
-import { Link } from "lucide-react";
-import AddImageHouse from "./form/add-image-house";
 import Image from "next/image";
 import Placeholser from "@/public/empty-product.webp";
+import ModalAddImageHouse from "./form/home/modal-add-image-house";
+import ModalAddDocument from "./form/document/modal-document";
+import ModalAddVideo from "./form/video/modal-add-video";
+import Link from "next/link";
 
 type DocumentVideoImageProps = {
   video: Assisted["Videos"][number][];
@@ -27,11 +29,12 @@ function DocumentVideoImage({
             source={"هــاوکــاریــکــراون"}
             destination={"وێنەی ناومــاڵ"}
           />
-          <AddImageHouse />
+          <ModalAddImageHouse />
         </div>
         <div className="my-10 flex items-center overflow-x-auto snap-x gap-5">
           {Array.from({ length: 10 }).map((_, index) => (
             <Image
+              key={index}
               src={Placeholser}
               alt="image"
               height={200}
@@ -49,11 +52,12 @@ function DocumentVideoImage({
             source={"هــاوکــاریــکــراون"}
             destination={"وێنەی بــەڵــگـەنامە"}
           />
-          <AddImageHouse />
+          <ModalAddDocument />
         </div>
         <div className="my-10 flex items-center overflow-x-auto snap-x gap-5">
           {Array.from({ length: 10 }).map((_, index) => (
             <Image
+              key={index}
               src={Placeholser}
               alt="image"
               height={200}
@@ -71,11 +75,12 @@ function DocumentVideoImage({
             source={"هــاوکــاریــکــراون"}
             destination={"فــیــدۆیــەکان"}
           />
-          <AddImageHouse />
+          <ModalAddVideo />
         </div>
         <div className="my-10 flex items-center overflow-x-auto snap-x gap-5">
           {Array.from({ length: 10 }).map((_, index) => (
             <Image
+              key={index}
               src={Placeholser}
               alt="image"
               height={200}

@@ -59,7 +59,11 @@ const columnOwning: ColumnDef<Assisted["Owning"][0]>[] = [
       <DataTableColumnHeader column={column} title="سەرنج" />
     ),
     cell: ({ row }) => {
-      return <span className="">{row?.original?.note || "-"}</span>;
+      return (
+        <span className="text-wrap line-clamp-1 hover:line-clamp-none">
+          {row?.original?.note || "-"}
+        </span>
+      );
     },
   },
   {
@@ -106,18 +110,18 @@ const columnOwning: ColumnDef<Assisted["Owning"][0]>[] = [
                   isEdit
                   handleClose={handleClose}
                   info={{
-                    description: row?.original?.description,
-                    headMemberId: row?.original?.headMemberId,
-                    note: row?.original?.note,
-                    price: row?.original?.price.toString(),
-                    typeOfCurrency: row?.original?.typeOfCurrency,
-                    typeOfOwning: row?.original?.typeOfOwning,
+                    description: row?.original?.description || "",
+                    headMemberId: row?.original?.headMemberId || "",
+                    note: row?.original?.note || "",
+                    price: row?.original?.price || 0,
+                    typeOfCurrency: row?.original?.typeOfCurrency || "",
+                    typeOfOwning: row?.original?.typeOfOwning || "",
                   }}
                 />
               </CustomDialog>
               <hr className="border-gray" />
               <ReusableDeleteDailog
-                title="دڵنیایت لە سڕینەوەی بەکارهێنەر"
+                title="دڵنیایت لە سڕینەوەی خــاوەندارێتی"
                 isFreshButtonPass
                 button={
                   <button className="flex gap-2 items-center font-sirwan_reguler  hover:bg-primary hover:text-white transition-all duration-500 p-2 rounded-b-lg w-full ">

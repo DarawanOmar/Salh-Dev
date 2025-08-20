@@ -11,11 +11,16 @@ import {
 // -------------------------------POST--------------------------------
 
 export const AddFamilyMemberAction = async (data: AddFamilyMemberType) => {
+  const dataFormatted = {
+    ...data,
+    isMarried: data.isMarried === "true" ? true : false,
+  };
   const result = await apiRequest({
     method: "POST",
     url: EndPoints.family_member.add,
-    data,
+    data: data,
   });
+  console.log("Data => ", dataFormatted);
   console.log("URL => ", EndPoints.family_member.add);
   console.log("object", result);
   return result;
@@ -73,7 +78,10 @@ export const updateFamilyMemberAction = async (
   const result = await apiRequest({
     method: "PATCH",
     url: EndPoints.family_member.update(id),
-    data,
+    data: {
+      ...data,
+      isMarried: data.isMarried === "true" ? true : false,
+    },
   });
   return result;
 };
@@ -110,7 +118,7 @@ export const deleteCommitteeAssistedAction = async (id: string) => {
 export const deleteAssistedAction = async (id: string) => {
   const result = await apiRequest({
     method: "DELETE",
-    url: EndPoints.assisted.delete(id),
+    url: EndPoints.head_members.delete(id),
   });
   return result;
 };

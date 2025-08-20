@@ -74,12 +74,6 @@ const data = (permissions: string[]) => {
         icon: Assisted,
         isActive: permissions.includes("assisted"),
       },
-      {
-        title: "دەســــەڵاتــەکــان",
-        url: "/roles",
-        icon: Roles,
-        isActive: permissions.includes("roles"),
-      },
 
       {
         title: "خــێـــرخــواز",
@@ -87,6 +81,7 @@ const data = (permissions: string[]) => {
         icon: Charitable,
         isActive: permissions.includes("charitable"),
       },
+
       {
         title: "پـــارەی هـــاتوو",
         url: "/recived-money",
@@ -104,6 +99,12 @@ const data = (permissions: string[]) => {
         url: "/report",
         icon: Report,
         isActive: permissions.includes("report"),
+      },
+      {
+        title: "دەســــەڵاتــەکــان",
+        url: "/roles",
+        icon: Roles,
+        isActive: permissions.includes("roles"),
       },
       {
         title: "پـــاشــەکــەوتــکــردن",
