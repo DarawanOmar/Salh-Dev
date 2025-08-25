@@ -21,13 +21,6 @@ export default async function RootLayout({
           <div className="w-full px-2  ">
             <Header />
             <main>{children}</main>
-            <Toaster
-              dir="rtl"
-              toastOptions={{
-                className: `${fontSirwan.variable}  font-medium font-sirwan`,
-              }}
-              richColors
-            />
           </div>
         </SidebarProvider>
       </QueryClientProviderWrapper>
