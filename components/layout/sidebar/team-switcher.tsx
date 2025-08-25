@@ -8,8 +8,11 @@ import { LogOutIcon } from "lucide-react";
 import logo from "@/public/logo.png";
 import { logout } from "@/lib/utils/cookies";
 import { LuLoaderCircle } from "react-icons/lu";
+import { useGetProfile } from "@/hooks/use-fetch-queries";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function TeamSwitcher({ isHead }: { isHead: boolean }) {
+  const { data: profile, isLoading } = useGetProfile();
   const { open } = useSidebar();
   const [pendding, startTransition] = React.useTransition();
 
@@ -58,8 +61,16 @@ export function TeamSwitcher({ isHead }: { isHead: boolean }) {
         />
       </div>
       <div className="flex flex-col">
-        <span className="text-start">Admin</span>
-        <span>admin@gmail.com</span>
+        {isLoading ? (
+          <Skeleton className="w-20 h-4 " />
+        ) : (
+          <span className="text-start">{profile?.data?.name}</span>
+        )}
+        {isLoading ? (
+          <Skeleton className="w-32 h-4 mt-1" />
+        ) : (
+          <span>{profile?.data?.email}</span>
+        )}
       </div>
       <div onClick={handleSignOut} className="mr-auto">
         {pendding ? (

@@ -54,6 +54,7 @@ export const EndPoints = {
     delete: (id: string) => `${api}ownings/${id}`,
   },
   user: {
+    profile: `${api}profile`,
     get: (page: string, search: string) => {
       const queryParams = [];
 
@@ -286,7 +287,6 @@ export const EndPoints = {
     update: (id: string) => `${api}videos/${id}`,
     delete: (id: number) => `${api}videos/${id}`,
   },
-
   role: {
     get: (page: string, search: string) => {
       const queryParams = [];

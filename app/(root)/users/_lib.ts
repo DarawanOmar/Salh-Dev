@@ -17,3 +17,10 @@ export const getOneUser = async (id: string) => {
   });
   return result;
 };
+export const getProfile = async () => {
+  const result = await apiRequest<User>({
+    method: "GET",
+    url: EndPoints.user.profile,
+  });
+  return result;
+};

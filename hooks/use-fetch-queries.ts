@@ -1,4 +1,5 @@
 import { getAllCommiteeWithoutPagination } from "@/app/(root)/committee/_lib";
+import { getProfile } from "@/app/(root)/users/_lib";
 import {
   getAllCharitableWithoutPagination,
   getAllHeadMemberWithoutPagination,
@@ -62,6 +63,14 @@ export const useGetDocuments = () => {
   return useQuery({
     queryKey: ["getDocuments"],
     queryFn: getDocuments,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    refetchOnWindowFocus: false,
+  });
+};
+export const useGetProfile = () => {
+  return useQuery({
+    queryKey: ["getProfile"],
+    queryFn: getProfile,
     staleTime: 1000 * 60 * 5, // 5 minutes
     refetchOnWindowFocus: false,
   });

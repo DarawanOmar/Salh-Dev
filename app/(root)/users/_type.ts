@@ -34,9 +34,17 @@ export interface User {
   role: {
     id: string;
     name: string;
+    permissions: Permission[];
   };
   MoneyGiven: MoneyGiven[];
   MoneyReceived: MoneyReceived[];
+}
+export interface Permission {
+  id: string;
+  action: string;
+  resource: string;
+  status: boolean;
+  roleId: string;
 }
 export interface MoneyReceived {
   id: string;
