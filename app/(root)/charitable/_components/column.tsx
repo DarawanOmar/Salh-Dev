@@ -116,6 +116,7 @@ const column: ColumnDef<Charitable>[] = [
                     address: row.original?.address,
                     description: row.original?.description,
                     phone: row.original?.phone,
+                    imageUrl: null,
                   }}
                 />
               </CustomDialog>

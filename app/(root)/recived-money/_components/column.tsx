@@ -72,7 +72,13 @@ const column: ColumnDef<RecivedMoney>[] = [
       <DataTableColumnHeader column={column} title="جۆری پارە" />
     ),
     cell: ({ row }) => {
-      return <span className="">{row?.original?.currencyType || "-"}</span>;
+      return (
+        <span className="">
+          {row?.original?.currencyType === "IQD"
+            ? "دینار عێراق"
+            : "دۆلاری ئەمریکی"}
+        </span>
+      );
     },
   },
   {

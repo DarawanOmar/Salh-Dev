@@ -55,7 +55,9 @@ export default function AddRecivedMoneyForm({
         ? await updateRecivedMoneyAction(id as string, values)
         : await addRecivedMoneyAction(values);
       if (result.success) {
-        toast.success(result.message);
+        toast.success(
+          isEdit ? "بە سەرکەوتووی گۆرانکاری کرا" : "بە سەرکەوتووی تۆمارکرا"
+        );
         handleClose && handleClose();
         router.refresh();
       } else {

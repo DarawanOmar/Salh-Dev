@@ -90,7 +90,7 @@ export default function AddCommitte({
           <div className="sm:col-span-2 ">
             <FormField
               control={form.control}
-              name="image"
+              name="imageUrl"
               render={({ field }) => (
                 <>
                   <FormLabel className="text-base">وێـــنـــە </FormLabel>
@@ -157,7 +157,7 @@ const getDefaultValues = (values: Partial<addUCommitteeType> = {}) => {
     address: "",
     note: "",
     phone: "",
-    image: null,
+    imageUrl: null,
   };
 
   return { ...defaultValues, ...values };

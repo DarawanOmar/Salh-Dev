@@ -14,6 +14,10 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "http",
+        hostname: "api.khoshnaw.org",
+      },
+      {
+        protocol: "http",
         hostname: "**",
       },
     ],

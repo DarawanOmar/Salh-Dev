@@ -71,7 +71,13 @@ const column: ColumnDef<Given>[] = [
       <DataTableColumnHeader column={column} title="جۆری پارە" />
     ),
     cell: ({ row }) => {
-      return <span className="">{row?.original?.currencyType || "-"}</span>;
+      return (
+        <span className="">
+          {row?.original?.currencyType === "IQD"
+            ? "دینار عێراق"
+            : "دۆلاری ئەمریکی"}
+        </span>
+      );
     },
   },
   {
@@ -121,11 +127,10 @@ const column: ColumnDef<Given>[] = [
                     currencyType: row.original?.currencyType || "",
                     note: row.original?.note || "",
                     transactionType: row.original?.transactionType || "",
-                    givenAt: row.original?.givenAt,
+                    givenAt: new Date(row.original?.givenAt) || new Date(),
                     headMemberId: row.original?.headMemberId || "",
                     userId: row.original?.userId || "",
                     safeId: row.original?.safeId || "",
-                    documentIssue: row.original?.documentIssue,
                   }}
                 />
               </CustomDialog>

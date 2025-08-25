@@ -13,13 +13,8 @@ import { addGivenAction, updateGivenAction } from "../../_action";
 import { addGiven, addGivenType } from "../../_type";
 import { typeOfCurrency } from "@/app/(root)/assisted/[id]/_components/page/owning/form/add-owning";
 import { SelectFormField } from "@/components/reusable/reusable-select";
-import {
-  useGetCashSafe,
-  useGetDocuments,
-  useGetHeadMember,
-  useGetUsers,
-} from "@/hooks/use-fetch-queries";
 import { DatePickerForm } from "@/components/reusable/date-picker-form";
+import { useGetDataForm } from "../_hook/use-get-data-form";
 
 type Props = {
   isEdit?: boolean;
@@ -36,22 +31,19 @@ export default function AddGivenForm({ isEdit, info, handleClose, id }: Props) {
     resolver: zodResolver(addGiven),
     defaultValues: getDefaultValues(info),
   });
-  const { data: headMembers, isLoading, isError } = useGetHeadMember();
+
   const {
-    data: documents,
-    isLoading: documentsLoading,
-    isError: documentsError,
-  } = useGetDocuments();
-  const {
-    data: users,
-    isLoading: usersLoading,
-    isError: usersError,
-  } = useGetUsers();
-  const {
-    data: cashSafe,
-    isLoading: cashSafeLoading,
-    isError: cashSafeError,
-  } = useGetCashSafe();
+    cashSafe,
+    cashSafeError,
+    cashSafeLoading,
+    headMembers,
+    isError,
+    isLoading,
+    users,
+    usersError,
+    usersLoading,
+  } = useGetDataForm();
+
   function onSubmit(values: addGivenType) {
     setPendding(async () => {
       const result = isEdit
@@ -73,22 +65,6 @@ export default function AddGivenForm({ isEdit, info, handleClose, id }: Props) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="px-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <SelectFormField
-            control={form.control}
-            name="documentIssue"
-            placeholder="بەڵــگـەنـامە هەڵبژێرە"
-            label={"بەڵــگـەنـامە"}
-            isError={documentsError}
-            isLoading={documentsLoading}
-            options={
-              documents?.data?.map((item) => {
-                return {
-                  label: item?.headMember?.fullName,
-                  value: item.id,
-                };
-              }) || []
-            }
-          />
           <SelectFormField
             control={form.control}
             name="headMemberId"
@@ -192,7 +168,6 @@ export default function AddGivenForm({ isEdit, info, handleClose, id }: Props) {
 
 const getDefaultValues = (values: Partial<addGivenType> = {}) => {
   const defaultValues: addGivenType = {
-    documentIssue: "",
     headMemberId: "",
     userId: "",
     safeId: "",

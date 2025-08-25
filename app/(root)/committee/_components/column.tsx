@@ -99,7 +99,7 @@ const column: ColumnDef<Committee>[] = [
                   isEdit
                   handleClose={handleClose}
                   info={{
-                    image: null,
+                    imageUrl: null,
                     name: row?.original?.name,
                     address: row.original?.address,
                     note: row.original?.note,

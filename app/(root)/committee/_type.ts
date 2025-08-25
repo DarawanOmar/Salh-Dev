@@ -6,7 +6,7 @@ export const addUCommittee = z.object({
   phone: z.string().min(1, { message: "ژمارەی مۆبایل داخڵ بکە" }),
   address: z.string().min(1, { message: "ناونیشانی داخڵ بکە" }),
   note: z.string().min(1, { message: "تێبینی داخڵ بکە" }),
-  image: z
+  imageUrl: z
     .instanceof(File) // Ensure the value is of type `File`
     .refine((file) => file.size < sizeImage, {
       message: "File size must be less than 1 MB",

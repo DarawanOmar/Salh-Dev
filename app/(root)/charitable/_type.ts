@@ -1,3 +1,4 @@
+import { sizeImage } from "@/lib/globals";
 import { z } from "zod";
 
 export const addCharitable = z.object({
@@ -5,6 +6,12 @@ export const addCharitable = z.object({
   phone: z.string().min(1, { message: "ژمارەی مۆبایل داخڵ بکە" }),
   address: z.string().min(1, { message: "ناونیشانی داخڵ بکە" }),
   description: z.string().min(1, { message: "تێبینی داخڵ بکە" }),
+  imageUrl: z
+    .instanceof(File) // Ensure the value is of type `File`
+    .refine((file) => file.size < sizeImage, {
+      message: "File size must be less than 1 MB",
+    })
+    .nullable(),
 });
 
 export type addCharitableType = z.infer<typeof addCharitable>;
