@@ -28,10 +28,13 @@ async function NotificationSheet() {
           <SheetDescription></SheetDescription>
         </SheetHeader>
         {notifications.data?.length === 0 ? (
-          <div className="max-w-full mx-auto px-5">
-            <h1 className="my-10 text-muted-foreground">
+          <div className="max-w-full mx-auto px-5 mt-20">
+            <h1 className=" text-muted-foreground text-center">
               هــیــچ ئــاگـەدارکـردنەوەیەک نــیــە
             </h1>
+            <p className="text-center text-xs mx-auto">
+              لە کاتی هەبوونی هەر گۆڕانکاریەک لێرە ئاگەدارت دەکەینەوە
+            </p>
           </div>
         ) : (
           notifications?.data?.map((notification, index) => (
