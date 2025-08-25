@@ -18,10 +18,7 @@ import {
 import { sizeImage } from "@/lib/globals";
 import Image from "next/image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import {
-  AddAssistedAction,
-  UpdateAssistedAction,
-} from "../../../client-action";
+import { AddAssistedAction, UpdateAssistedAction } from "../../../_action";
 import { DatePickerForm } from "@/components/reusable/date-picker-form";
 import dynamic from "next/dynamic";
 import { SelectFormField } from "@/components/reusable/reusable-select";
@@ -60,7 +57,7 @@ export default function AddAssisted({ isEdit, info, id }: Props) {
         toast.success(
           isEdit ? "بە سەرکەوتووی گۆرانکاری کرا" : "بە سەرکەوتووی دروستکرا"
         );
-        router.refresh();
+        router.push("/assisted");
       } else {
         toast.error(result.message);
       }
@@ -130,6 +127,12 @@ export default function AddAssisted({ isEdit, info, id }: Props) {
           />
           <TextField
             control={form.control}
+            name="drugs"
+            label="چی دەخوات"
+            placeholder="چی دەخوات"
+          />
+          <TextField
+            control={form.control}
             name="salary"
             label="مووچە"
             placeholder="مووچە"
@@ -186,7 +189,7 @@ export default function AddAssisted({ isEdit, info, id }: Props) {
             label="کێشەی سەرەکی"
             placeholder="کێشەی سەرەکی"
           />
-          <div className="sm:col-span-2 ">
+          {/* <div className="sm:col-span-2 ">
             <FormField
               control={form.control}
               name="imageUrl"
@@ -232,7 +235,7 @@ export default function AddAssisted({ isEdit, info, id }: Props) {
                 </>
               )}
             />
-          </div>
+          </div> */}
           <div className="sm:col-span-2 ">
             <Map
               setFormValues={(lat, lng) => {
@@ -278,7 +281,8 @@ const getDefaultValues = (values: Partial<addUAssistedType> = {}) => {
     placeOfBirth: "",
     salary: "0",
     temporary: "false",
-    imageUrl: null,
+    drugs: "",
+    // imageUrl: null,
   };
 
   return { ...defaultValues, ...values };

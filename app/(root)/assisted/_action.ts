@@ -6,9 +6,26 @@ import {
   AddCommitteeAssistedType,
   AddFamilyMemberType,
   AddOwningType,
+  addUAssistedType,
 } from "./_type";
 
 // -------------------------------POST--------------------------------
+
+export const AddAssistedAction = async (data: addUAssistedType) => {
+  const dataSend = {
+    ...data,
+    temporary: data.temporary === "true" ? true : false,
+  };
+  const result = await apiRequest({
+    method: "POST",
+    url: EndPoints.head_members.add,
+    data: dataSend,
+  });
+  console.log("Data => ", dataSend);
+  console.log("URL => ", EndPoints.head_members.add);
+  console.log("object", result);
+  return result;
+};
 
 export const AddFamilyMemberAction = async (data: AddFamilyMemberType) => {
   const dataFormatted = {
@@ -25,7 +42,6 @@ export const AddFamilyMemberAction = async (data: AddFamilyMemberType) => {
   console.log("object", result);
   return result;
 };
-
 export const AddOwningAction = async (data: AddOwningType) => {
   const result = await apiRequest({
     method: "POST",
@@ -51,6 +67,23 @@ export const AddCommitteeAssistedAction = async (
 
 // -------------------------------PATCH--------------------------------
 
+export const UpdateAssistedAction = async (
+  id: string,
+  data: addUAssistedType
+) => {
+  const result = await apiRequest({
+    method: "POST",
+    url: EndPoints.head_members.update(id),
+    data: {
+      ...data,
+      temporary: data.temporary === "true" ? true : false,
+    },
+  });
+  console.log("Data => ", data);
+  console.log("URL => ", EndPoints.head_members.update(id));
+  console.log("object", result);
+  return result;
+};
 export const updateOwningAction = async (id: string, data: AddOwningType) => {
   const result = await apiRequest({
     method: "PATCH",
@@ -70,7 +103,6 @@ export const updateCommitteeAssistedAction = async (
   });
   return result;
 };
-
 export const updateFamilyMemberAction = async (
   id: string,
   data: AddFamilyMemberType

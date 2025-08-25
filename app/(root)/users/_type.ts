@@ -1,3 +1,4 @@
+import { sizeImage } from "@/lib/globals";
 import { z } from "zod";
 
 export const addUser = z.object({
@@ -13,7 +14,12 @@ export const addUser = z.object({
   password: z.string().optional(),
   roleId: z.string().optional(),
   // isActive: z.string().optional(),
-  // imageUrl: z.string().optional(),
+  imageUrl: z
+    .instanceof(File) // Ensure the value is of type `File`
+    .refine((file) => file.size < sizeImage, {
+      message: "File size must be less than 1 MB",
+    })
+    .nullable(),
 });
 
 export type addUserType = z.infer<typeof addUser>;

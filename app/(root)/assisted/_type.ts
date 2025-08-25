@@ -25,12 +25,12 @@ export const addUAssisted = z.object({
   mainProblem: z.string().optional(),
   biggestProblem: z.string().optional(),
   drugs: z.string().optional(),
-  imageUrl: z
-    .instanceof(File)
-    .refine((file) => file.size < sizeImage, {
-      message: "File size must be less than 1 MB",
-    })
-    .nullable(),
+  // imageUrl: z
+  //   .instanceof(File)
+  //   .refine((file) => file.size < sizeImage, {
+  //     message: "File size must be less than 1 MB",
+  //   })
+  //   .nullable(),
 });
 
 export type addUAssistedType = z.infer<typeof addUAssisted>;
