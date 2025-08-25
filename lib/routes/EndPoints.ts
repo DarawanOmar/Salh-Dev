@@ -5,6 +5,10 @@ export const EndPoints = {
   register: `${api}auth/register`,
   logout: `${api}auth/logout`,
   dashboard: `${api}dashboard`,
+  backup: {
+    get: `${api}backup`,
+    restore: `${api}backup/restore`,
+  },
   notification: {
     get: `${api}notifications`,
     seen: (id: string) => `${api}notifications/${id}/seen`,
