@@ -306,6 +306,6 @@ export const EndPoints = {
     getById: (id: string) => `${api}roles/${id}`,
     add: `${api}roles`,
     update: (id: string) => `${api}roles/${id}`,
-    delete: (id: number) => `${api}roles/${id}`,
+    delete: (id: string) => `${api}roles/${id}`,
   },
 };
