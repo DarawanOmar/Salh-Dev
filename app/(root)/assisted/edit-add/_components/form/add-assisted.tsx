@@ -3,21 +3,12 @@ import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import { Form, FormField, FormLabel } from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import LoadingSpinner from "@/components/reusable/loadingSpinner";
 import { TextField } from "@/components/reusable/input-form-reusable";
 import { addUAssisted, addUAssistedType } from "../../../_type";
-import {
-  FileInput,
-  FileSvgDraw,
-  FileUploader,
-  FileUploaderItem,
-} from "@/components/ui/file-upload";
-import { sizeImage } from "@/lib/globals";
-import Image from "next/image";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { AddAssistedAction, UpdateAssistedAction } from "../../../_action";
 import { DatePickerForm } from "@/components/reusable/date-picker-form";
 import dynamic from "next/dynamic";
@@ -47,6 +38,8 @@ export default function AddAssisted({ isEdit, info, id }: Props) {
     resolver: zodResolver(addUAssisted),
     defaultValues: getDefaultValues(info),
   });
+
+  console.log("Info => ", info);
 
   function onSubmit(values: addUAssistedType) {
     setPendding(async () => {
@@ -238,6 +231,8 @@ export default function AddAssisted({ isEdit, info, id }: Props) {
           </div> */}
           <div className="sm:col-span-2 ">
             <Map
+              lant={form.watch("latitude")}
+              long={form.watch("longitude")}
               setFormValues={(lat, lng) => {
                 form.setValue("latitude", lat);
                 form.setValue("longitude", lng);

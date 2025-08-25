@@ -19,7 +19,13 @@ export default function MainLayout({
           disableTransitionOnChange
         >
           {children}
-          <Toaster />
+          <Toaster
+            dir="rtl"
+            toastOptions={{
+              className: `${fontSirwan.variable}  font-medium font-sirwan`,
+            }}
+            richColors
+          />
         </ThemeProvider>
       </body>
     </html>

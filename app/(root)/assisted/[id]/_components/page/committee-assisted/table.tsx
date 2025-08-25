@@ -7,7 +7,7 @@ import ModalAddCommitteeAssiste from "./form/modal-add-committe";
 import columnCommitteeAssisted from "./column";
 
 type Props = {
-  data: Assisted["Committee"][0][];
+  data: Assisted["CommitteeMember"][0][];
 };
 
 function TableCommitteeAssisted({ data }: Props) {

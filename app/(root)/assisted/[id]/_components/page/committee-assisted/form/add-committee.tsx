@@ -6,13 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { DialogClose } from "@/components/ui/dialog";
 import { useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import LoadingSpinner from "@/components/reusable/loadingSpinner";
-import { SelectFormField } from "@/components/reusable/reusable-select";
-import {
-  useGetCommitteesWithoutPagination,
-  useGetRole,
-} from "@/hooks/use-fetch-queries";
 import {
   AddCommitteeAssistedAction,
   updateCommitteeAssistedAction,
@@ -21,6 +16,7 @@ import {
   AddCommitteeAssisted,
   AddCommitteeAssistedType,
 } from "@/app/(root)/assisted/_type";
+import { TextField } from "@/components/reusable/input-form-reusable";
 
 type filmFormProps = {
   isEdit?: boolean;
@@ -35,6 +31,7 @@ export default function AddCommitteeAssistedForm({
   handleClose,
   id,
 }: filmFormProps) {
+  const params = useParams();
   const [pendding, setPendding] = useTransition();
   const router = useRouter();
   const form = useForm<AddCommitteeAssistedType>({
@@ -42,19 +39,16 @@ export default function AddCommitteeAssistedForm({
     defaultValues: getDefaultValues(info),
   });
 
-  const {
-    data: committees,
-    isLoading,
-    isError,
-  } = useGetCommitteesWithoutPagination();
-
   function onSubmit(values: AddCommitteeAssistedType) {
+    values.headMemberId = params.id as string;
     setPendding(async () => {
       const result = isEdit
         ? await updateCommitteeAssistedAction(id as string, values)
         : await AddCommitteeAssistedAction(values);
       if (result.success) {
-        toast.success(result.message);
+        toast.success(
+          isEdit ? "بە سەرکەوتووی گۆرانکاری کرا" : "بە سەرکەوتووی دروستکرا"
+        );
         handleClose && handleClose();
         router.refresh();
       } else {
@@ -66,23 +60,20 @@ export default function AddCommitteeAssistedForm({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="px-6">
-        <div className="grid grid-cols-1 gap-5">
-          <SelectFormField
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <TextField
             control={form.control}
-            name="committeeId"
-            placeholder="لــیــژنە هەڵبژێرە"
-            label={"لــیــژنە"}
-            isError={isError}
-            isLoading={isLoading}
-            options={
-              committees?.data?.map((item) => {
-                return {
-                  label: item.name,
-                  value: item.id,
-                };
-              }) || []
-            }
+            name="name"
+            label="ناوی لــیــژنە"
           />
+          <TextField
+            control={form.control}
+            name="phone"
+            label="ژمارەی مۆبایل"
+          />
+          <TextField control={form.control} name="address" label="ناونیشان" />
+
+          <TextField control={form.control} name="note" label="سەرنج" />
         </div>
 
         <div className="grid grid-cols-2 gap-10 mt-10">
@@ -99,10 +90,12 @@ export default function AddCommitteeAssistedForm({
     </Form>
   );
 }
-
 const getDefaultValues = (values: Partial<AddCommitteeAssistedType> = {}) => {
   const defaultValues: AddCommitteeAssistedType = {
-    committeeId: "",
+    name: "",
+    address: "",
+    note: "",
+    phone: "",
     headMemberId: "",
   };
 

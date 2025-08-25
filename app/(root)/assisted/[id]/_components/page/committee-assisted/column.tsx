@@ -15,8 +15,9 @@ import ReusableDeleteDailog from "@/components/reusable/reusable-delete-dialog";
 import Link from "next/link";
 import AddCommitteeAssistedForm from "./form/add-committee";
 import { deleteCommitteeAssistedAction } from "@/app/(root)/assisted/_action";
+import { Assisted } from "@/app/(root)/assisted/_type";
 
-const columnCommitteeAssisted: ColumnDef<any>[] = [
+const columnCommitteeAssisted: ColumnDef<Assisted["CommitteeMember"][0]>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => (
@@ -48,21 +49,21 @@ const columnCommitteeAssisted: ColumnDef<any>[] = [
       return <span className="">{row?.original?.address || "-"}</span>;
     },
   },
-  {
-    accessorKey: "profile",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="پروفایل" />
-    ),
-    cell: ({ row }) => {
-      return (
-        <Link href={`/committee/${row?.original?.id}`}>
-          <Button size={"sm"} className="rounded h-8 py-0 px-2">
-            بــیــنــین
-          </Button>
-        </Link>
-      );
-    },
-  },
+  // {
+  //   accessorKey: "profile",
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="پروفایل" />
+  //   ),
+  //   cell: ({ row }) => {
+  //     return (
+  //       <Link href={`/committee/${row?.original?.id}`}>
+  //         <Button size={"sm"} className="rounded h-8 py-0 px-2">
+  //           بــیــنــین
+  //         </Button>
+  //       </Link>
+  //     );
+  //   },
+  // },
 
   {
     id: "actions",
@@ -98,14 +99,17 @@ const columnCommitteeAssisted: ColumnDef<any>[] = [
                   isEdit
                   handleClose={handleClose}
                   info={{
-                    committeeId: "",
-                    headMemberId: "",
+                    address: row.original.address,
+                    phone: row.original.phone,
+                    name: row.original.name,
+                    note: row.original.note,
+                    headMemberId: row.original.headMemberId,
                   }}
                 />
               </CustomDialog>
               <hr className="border-gray" />
               <ReusableDeleteDailog
-                title="دڵنیایت لە سڕینەوەی بەکارهێنەر"
+                title="دڵنیایت لە سڕینەوەی لــیــژنە"
                 isFreshButtonPass
                 button={
                   <button className="flex gap-2 items-center font-sirwan_reguler  hover:bg-primary hover:text-white transition-all duration-500 p-2 rounded-b-lg w-full ">

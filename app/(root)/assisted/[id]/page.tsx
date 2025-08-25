@@ -54,7 +54,9 @@ async function FeedPage({ params, searchParams }: ParamsSearchParamsTypeUser) {
       ) : tab === "owning" ? (
         <TableOwning data={oneCommittee.data?.Owning || []} />
       ) : (
-        <TableCommitteeAssisted data={oneCommittee.data?.Committee || []} />
+        <TableCommitteeAssisted
+          data={oneCommittee.data?.CommitteeMember || []}
+        />
       )}
       <DocumentVideoImage
         houseDescription={oneCommittee.data?.HouseDescription || []}

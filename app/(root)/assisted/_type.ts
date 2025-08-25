@@ -60,8 +60,11 @@ export const AddOwning = z.object({
 export type AddOwningType = z.infer<typeof AddOwning>;
 
 export const AddCommitteeAssisted = z.object({
-  committeeId: z.string().optional(),
-  headMemberId: z.string().optional(),
+  name: z.string().min(1, { message: "ناو داخڵ بکە" }),
+  phone: z.string().min(1, { message: "ژمارەی مۆبایل داخڵ بکە" }),
+  address: z.string().min(1, { message: "ناونیشانی داخڵ بکە" }),
+  note: z.string().min(1, { message: "تێبینی داخڵ بکە" }),
+  headMemberId: z.string(),
 });
 
 export type AddCommitteeAssistedType = z.infer<typeof AddCommitteeAssisted>;
@@ -119,19 +122,20 @@ export interface Assisted {
   salary: string;
   currencyType: string;
   currentJob: string;
-  temporary: false;
+  temporary: boolean;
   phoneNumber1: string;
   phoneNumber2: string | null;
   mainProblem: string;
   imageUrl: string | null;
   biggestProblem: string;
+  drugs: string;
   MoneyGiven: MoneyGiven[];
   FamilyMember: FamilyMember[];
   Owning: Owning[];
   Documents: Documents[];
   videos: Videos[];
   HouseDescription: HouseDescription[];
-  Committee: Committee[];
+  CommitteeMember: CommitteeMember[];
 }
 export interface AssistedOnly
   extends Omit<
@@ -144,6 +148,15 @@ export interface AssistedOnly
     | "HeadMemberDrug"
     | "HouseDescription"
   > {}
+export interface CommitteeMember {
+  id: string;
+  name: string;
+  phone: string;
+  address: string;
+  note: string;
+  imageUrl: string;
+  headMemberId: string;
+}
 export interface FamilyMember {
   id: string;
   fullName: string;

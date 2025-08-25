@@ -57,10 +57,10 @@ export const AddCommitteeAssistedAction = async (
 ) => {
   const result = await apiRequest({
     method: "POST",
-    url: EndPoints.assisted_committee.add,
+    url: EndPoints.commitee.add,
     data,
   });
-  console.log("URL => ", EndPoints.assisted_committee.add);
+  console.log("URL => ", EndPoints.commitee.add);
   console.log("object", result);
   return result;
 };
@@ -72,7 +72,7 @@ export const UpdateAssistedAction = async (
   data: addUAssistedType
 ) => {
   const result = await apiRequest({
-    method: "POST",
+    method: "PATCH",
     url: EndPoints.head_members.update(id),
     data: {
       ...data,
@@ -98,7 +98,7 @@ export const updateCommitteeAssistedAction = async (
 ) => {
   const result = await apiRequest({
     method: "PATCH",
-    url: EndPoints.assisted_committee.update(id),
+    url: EndPoints.commitee.update(id),
     data,
   });
   return result;
@@ -143,7 +143,7 @@ export const deleteOwningAction = async (id: string) => {
 export const deleteCommitteeAssistedAction = async (id: string) => {
   const result = await apiRequest({
     method: "DELETE",
-    url: EndPoints.assisted_committee.delete(id),
+    url: EndPoints.commitee.delete(id),
   });
   return result;
 };
