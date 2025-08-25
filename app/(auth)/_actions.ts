@@ -56,6 +56,7 @@ export async function loginAction(data: loginSchemaType) {
     }
   } catch (error: any) {
     const message = error?.response?.data[Object.keys(error.response.data)[0]];
+    console.log("Message => ", message);
     return {
       success: false,
       message,
@@ -86,15 +87,3 @@ export const signOut = async () => {
   const res = await apiRequest({ method: "POST", url: EndPoints.logout });
   return res;
 };
-
-const allowedRedirects = [
-  "main",
-  "sale",
-  "purchase",
-  "expenses",
-  "warehouse",
-  "loans",
-  "invoices",
-  "report",
-  "setting",
-];

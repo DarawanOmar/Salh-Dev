@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSession, updateSession } from "./lib/utils/cookies";
+import { getSession } from "./lib/utils/cookies";
 
 export async function middleware(request: NextRequest) {
   const token = await getSession();
@@ -13,8 +13,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
-  NextResponse.next();
-  return await updateSession(request);
+  return NextResponse.next();
 }
 
 export const config = {

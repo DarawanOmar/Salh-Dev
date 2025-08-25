@@ -10,6 +10,7 @@ import { logout } from "@/lib/utils/cookies";
 import { LuLoaderCircle } from "react-icons/lu";
 import { useGetProfile } from "@/hooks/use-fetch-queries";
 import { Skeleton } from "@/components/ui/skeleton";
+import { signOut } from "@/app/(auth)/_actions";
 
 export function TeamSwitcher({ isHead }: { isHead: boolean }) {
   const { data: profile, isLoading } = useGetProfile();
@@ -18,7 +19,8 @@ export function TeamSwitcher({ isHead }: { isHead: boolean }) {
 
   const handleSignOut = () => {
     startTransition(async () => {
-      logout();
+      await signOut();
+      await logout();
     });
   };
 

@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { cn } from "@/lib/utils";
 import { fontSirwan } from "@/public/fonts";
+import { Toaster } from "sonner";
 
 export default function MainLayout({
   children,
@@ -18,6 +19,7 @@ export default function MainLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

@@ -37,7 +37,7 @@ export default function AuthForm() {
         const redirect = res.data.redirectTo;
         login(token, redirect);
       } else {
-        toast.error(res?.message?.toString(), {
+        toast.error(res?.message, {
           cancel: {
             label: "Close",
             onClick: () => toast.dismiss(),
