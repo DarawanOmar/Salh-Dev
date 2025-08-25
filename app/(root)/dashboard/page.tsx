@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import Card, { data } from "./_components/card";
-import CashCard from "./_components/card-cash";
+import { DashboardType, getDashboardData, getNotifications } from "./_lib";
 
 function Page() {
   return (
@@ -13,18 +13,19 @@ function Page() {
 export default Page;
 
 async function FeedDashboard() {
-  // const data = await getDashboardData();
+  const dataDashboard = await getDashboardData();
+  const countNotifications = await getNotifications();
   return (
     <div className="px-3">
       <h1 className="mb-5">بــەخـــێــربێــن 👋</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5">
-        {data().map((item) => (
+        {data({
+          data: dataDashboard.data || ({} as DashboardType),
+          totalNotification: countNotifications.data?.length || 0,
+        }).map((item) => (
           <Card key={item.name} data={item} />
         ))}
       </div>
-      <Suspense fallback={<div>Loading CashCard...</div>}>
-        <CashCard />
-      </Suspense>
     </div>
   );
 }

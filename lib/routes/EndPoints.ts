@@ -5,6 +5,10 @@ export const EndPoints = {
   register: `${api}auth/register`,
   logout: `${api}auth/logout`,
   dashboard: `${api}dashboard`,
+  notification: {
+    get: `${api}notifications`,
+    seen: (id: string) => `${api}notifications/${id}/seen`,
+  },
   family_member: {
     get: (page: string, search: string) => {
       const queryParams = [];
