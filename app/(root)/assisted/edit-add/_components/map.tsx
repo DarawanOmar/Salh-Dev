@@ -39,7 +39,6 @@ function LocationMarker({ onClick }: LocationMarkerProps) {
   return null;
 }
 
-// Component to handle map view updates
 interface MapViewUpdaterProps {
   lat?: number;
   lng?: number;
@@ -51,8 +50,7 @@ function MapViewUpdater({ lat, lng, readOnly }: MapViewUpdaterProps) {
 
   useEffect(() => {
     if (readOnly && lat !== undefined && lng !== undefined) {
-      // Zoom to the provided coordinates when in readOnly mode
-      map.setView([lat, lng], 15); // You can adjust the zoom level (15) as needed
+      map.setView([lat, lng], 15);
     }
   }, [map, lat, lng, readOnly]);
 
@@ -68,14 +66,12 @@ interface MapProps {
 
 function Map({ setFormValues, lant, long, readOnly = false }: MapProps) {
   const [marker, setMarker] = useState<MarkerType | null>(() => {
-    // Initialize marker with provided coordinates if available
     if (lant !== undefined && long !== undefined) {
       return { lat: lant, lng: long };
     }
     return null;
   });
 
-  // Update marker when props change (useful for readOnly mode)
   useEffect(() => {
     if (lant !== undefined && long !== undefined) {
       setMarker({ lat: lant, lng: long });
@@ -83,21 +79,19 @@ function Map({ setFormValues, lant, long, readOnly = false }: MapProps) {
   }, [lant, long]);
 
   const handleMapClick = ({ lat, lng }: MarkerType) => {
-    // Only allow editing if not in read-only mode
     if (!readOnly) {
       setMarker({ lat, lng });
       if (setFormValues) {
-        setFormValues(lat, lng); // Trigger form update
+        setFormValues(lat, lng);
       }
     }
   };
 
-  // Determine the initial center and zoom based on readOnly mode and coordinates
   const getInitialCenter = (): [number, number] => {
     if (readOnly && lant !== undefined && long !== undefined) {
       return [lant, long];
     }
-    return [35.566864, 45.416107]; // Default center
+    return [36.1912, 44.0093];
   };
 
   const getInitialZoom = (): number => {

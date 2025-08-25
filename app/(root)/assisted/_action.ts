@@ -18,7 +18,7 @@ export const AddFamilyMemberAction = async (data: AddFamilyMemberType) => {
   const result = await apiRequest({
     method: "POST",
     url: EndPoints.family_member.add,
-    data: data,
+    data: dataFormatted,
   });
   console.log("Data => ", dataFormatted);
   console.log("URL => ", EndPoints.family_member.add);

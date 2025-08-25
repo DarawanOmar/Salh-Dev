@@ -1,7 +1,6 @@
 import { sizeImage } from "@/lib/globals";
 import { z } from "zod";
 import { MoneyGiven } from "../users/_type";
-import { Committee } from "../committee/_type";
 
 export const addUAssisted = z.object({
   fullName: z.string().min(1, { message: "ناو داخڵ بکە" }),
@@ -19,13 +18,14 @@ export const addUAssisted = z.object({
   salary: z.string().optional(),
   currencyType: z.string().optional(),
   currentJob: z.string().optional(),
-  temporary: z.boolean().optional(),
+  temporary: z.string().optional(),
   phoneNumber1: z.string().optional(),
   phoneNumber2: z.string().optional(),
   mainProblem: z.string().optional(),
   biggestProblem: z.string().optional(),
+  drugs: z.string().optional(),
   imageUrl: z
-    .instanceof(File) // Ensure the value is of type `File`
+    .instanceof(File)
     .refine((file) => file.size < sizeImage, {
       message: "File size must be less than 1 MB",
     })
@@ -67,7 +67,7 @@ export type AddCommitteeAssistedType = z.infer<typeof AddCommitteeAssisted>;
 
 export const AddImage = z.object({
   url: z
-    .instanceof(File) // Ensure the value is of type `File`
+    .instanceof(File)
     .refine((file) => file.size < sizeImage, {
       message: "File size must be less than 1 MB",
     })
@@ -78,7 +78,7 @@ export type AddImageType = z.infer<typeof AddImage>;
 
 export const AddVideo = z.object({
   url: z
-    .instanceof(File) // Ensure the value is of type `File`
+    .instanceof(File)
     .refine((file) => file.size < sizeImage, {
       message: "File size must be less than 1 MB",
     })
@@ -91,7 +91,7 @@ export type AddVideoType = z.infer<typeof AddVideo>;
 
 export const AddDocument = z.object({
   url: z
-    .instanceof(File) // Ensure the value is of type `File`
+    .instanceof(File)
     .refine((file) => file.size < sizeImage, {
       message: "File size must be less than 1 MB",
     })
@@ -128,10 +128,8 @@ export interface Assisted {
   FamilyMember: FamilyMember[];
   Owning: Owning[];
   Documents: Documents[];
-  Videos: Videos[];
-  HeadMemberDrug: HeadMemberDrug[];
+  videos: Videos[];
   HouseDescription: HouseDescription[];
-  Committee: Committee[];
 }
 export interface AssistedOnly
   extends Omit<
@@ -143,7 +141,6 @@ export interface AssistedOnly
     | "Videos"
     | "HeadMemberDrug"
     | "HouseDescription"
-    | "Committee"
   > {}
 export interface FamilyMember {
   id: string;
@@ -166,12 +163,21 @@ export interface Owning {
   description: string;
   headMemberId: string;
 }
-export interface HouseDescription {}
+export interface HouseDescription {
+  id: string;
+  description: string;
+  headMemberId: string;
+}
 export interface Documents {
   id: string;
   description: string;
   url: string | null;
   headMemberId: string;
 }
-export interface Videos {}
-export interface HeadMemberDrug {}
+export interface Videos {
+  id: string;
+  title: string;
+  description: string;
+  url: string;
+  headMemberId: string;
+}

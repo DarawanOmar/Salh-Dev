@@ -48,7 +48,9 @@ export default function AddVideoForm({ isEdit, info, handleClose, id }: Props) {
         ? await UpdateVideoAction(id as string, values)
         : await AddVideoAction(values);
       if (result.success) {
-        toast.success(result.message);
+        toast.success(
+          isEdit ? "بەسەرکەوتویی گۆڕانکاری کرا" : "بەسەرکەوتویی تۆمارکرا"
+        );
         handleClose && handleClose();
         router.refresh();
       } else {

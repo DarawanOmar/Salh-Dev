@@ -72,7 +72,11 @@ const columnOwning: ColumnDef<Assisted["Owning"][0]>[] = [
       <DataTableColumnHeader column={column} title="وردەکــاری" />
     ),
     cell: ({ row }) => {
-      return <span className="">{row?.original?.description || "-"}</span>;
+      return (
+        <span className="line-clamp-1 hover:line-clamp-none text-sm ">
+          {row?.original?.description || "-"}
+        </span>
+      );
     },
   },
 

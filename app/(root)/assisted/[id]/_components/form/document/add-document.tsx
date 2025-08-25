@@ -52,7 +52,9 @@ export default function AddImageHouse({
         ? await UpdateDocumentAction(id as string, values)
         : await AddDocumentAction(values);
       if (result.success) {
-        toast.success(result.message);
+        toast.success(
+          isEdit ? "بەسەرکەوتویی گۆڕانکاری کرا" : "بەسەرکەوتویی تۆمارکرا"
+        );
         handleClose && handleClose();
         router.refresh();
       } else {

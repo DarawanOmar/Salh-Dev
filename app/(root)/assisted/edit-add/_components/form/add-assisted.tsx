@@ -114,11 +114,13 @@ export default function AddAssisted({ isEdit, info, id }: Props) {
             label="شوێنی لەدایکبوون"
             placeholder="شوێنی لەدایکبوون"
           />
-          <TextField
+
+          <SelectFormField
             control={form.control}
             name="gender"
-            label="ڕەگەز"
-            placeholder="ڕەگەز"
+            placeholder="جۆری ڕەگەز هەڵبژێرە"
+            label={"ڕەگەز"}
+            options={typeOfGender}
           />
           <DatePickerForm
             className="w-full"
@@ -152,6 +154,13 @@ export default function AddAssisted({ isEdit, info, id }: Props) {
             control={form.control}
             name="dateOfExpiry"
             label="بەرواری بەسەرچوون"
+          />
+          <SelectFormField
+            control={form.control}
+            name="temporary"
+            placeholder="جۆری هاوکاریکراو هەڵبژێرە"
+            label={"هاوکاریکراو"}
+            options={typeOfTemporary}
           />
           <TextField
             control={form.control}
@@ -268,7 +277,7 @@ const getDefaultValues = (values: Partial<addUAssistedType> = {}) => {
     phoneNumber2: "",
     placeOfBirth: "",
     salary: "0",
-    temporary: false,
+    temporary: "false",
     imageUrl: null,
   };
 
@@ -283,5 +292,26 @@ const currencyTypeValue = [
   {
     label: "دۆلاری ئەمریکی",
     value: "USD",
+  },
+];
+
+export const typeOfTemporary = [
+  {
+    label: "کــاتــی",
+    value: "false",
+  },
+  {
+    label: "هــەمـیـشــەی",
+    value: "true",
+  },
+];
+export const typeOfGender = [
+  {
+    label: "نێر",
+    value: "Male",
+  },
+  {
+    label: "مێ",
+    value: "Female",
   },
 ];

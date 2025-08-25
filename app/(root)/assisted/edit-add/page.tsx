@@ -20,7 +20,29 @@ async function EditAddAssisted({ searchParams }: SearchParamsTypeUse) {
   if (isEditMode) {
     const result = await getOneAssisted(id);
     if (result.success) {
-      info = result.data as addUAssistedType;
+      info = {
+        currentAddress: result?.data?.currentAddress || "",
+        dateOfBirth: result?.data?.dateOfBirth || "",
+        city: result?.data?.city || "",
+        note: result?.data?.note || "",
+        nationality: result?.data?.nationality || "",
+        placeOfBirth: result?.data?.placeOfBirth || "",
+        gender: result?.data?.gender || "",
+        dateOfRegistration: result?.data?.dateOfRegistration || "",
+        salary: result?.data?.salary || "",
+        currencyType: result?.data?.currencyType || "",
+        currentJob: result?.data?.currentJob || "",
+        dateOfExpiry: result?.data?.dateOfExpiry || new Date(),
+        temporary: result?.data?.temporary || "false",
+        biggestProblem: result?.data?.biggestProblem || "",
+        phoneNumber1: result?.data?.phoneNumber1 || "",
+        phoneNumber2: result?.data?.phoneNumber2 || "",
+        mainProblem: result?.data?.mainProblem || "",
+        imageUrl: result?.data?.imageUrl || null,
+        fullName: result?.data?.fullName || "",
+        latitude: result?.data?.latitude || 0,
+        longitude: result?.data?.longitude || 0,
+      } as addUAssistedType;
     } else {
       return <div className="text-red-500">Error: {result.message}</div>;
     }

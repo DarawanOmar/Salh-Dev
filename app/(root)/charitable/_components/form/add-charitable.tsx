@@ -10,7 +10,10 @@ import { useRouter } from "next/navigation";
 import LoadingSpinner from "@/components/reusable/loadingSpinner";
 import { TextField } from "@/components/reusable/input-form-reusable";
 import { addCharitable, addCharitableType } from "../../_type";
-import { addCharitableAction, updateCharitableAction } from "../../_action";
+import {
+  addCharitableAction,
+  updateCharitableAction,
+} from "../../client-action";
 import {
   FileInput,
   FileSvgDraw,
