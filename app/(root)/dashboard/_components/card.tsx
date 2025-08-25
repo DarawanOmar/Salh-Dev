@@ -23,7 +23,11 @@ function Card({ data }: Props) {
           <h2 className="text-muted-foreground">{data.name}</h2>
           <p className="text-xl font-bold">{data.total.toLocaleString()}</p>
         </div>
-        <Image src={data.icon} alt={data.name} className="w-12 h-12 mb-2" />
+        <Image
+          src={data.icon}
+          alt={data.name}
+          className="w-12 h-12 mb-2 dark:invert"
+        />
       </div>
       {/* <div className="flex items-center gap-1">
         <p className="text-foreground">{data.description}</p>
