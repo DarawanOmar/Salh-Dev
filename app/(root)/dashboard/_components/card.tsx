@@ -7,7 +7,7 @@ import money_recive from "@/public/money-recived.svg";
 import poor from "@/public/pooer.svg";
 import charitable from "@/public/charitable.svg";
 import Image from "next/image";
-// import total_user from "@/public/total-user.svg";
+import total_user from "@/public/total-user.svg";
 // import { Decreased, Increased } from "@/public/icons";
 import { DashboardType } from "../_lib";
 
@@ -73,8 +73,8 @@ export const data = ({
   },
   {
     name: "کۆی گشتی بەکارهێنەر",
-    icon: data.users.total || 0,
-    total: 14,
+    icon: total_user,
+    total: data.users.total || 0,
     description: "  بەکارهێنەر زیادی کردووە",
     is_increased: true,
   },

@@ -24,8 +24,8 @@ export default function AuthForm() {
   const form = useForm<loginSchemaType>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "admin@gmail.com",
-      password: "admin",
+      email: "test@test.com",
+      password: "12345678",
     },
   });
   async function onSubmit(values: loginSchemaType) {
