@@ -9,7 +9,7 @@ import ModalAddVideo from "./form/video/modal-add-video";
 import Link from "next/link";
 
 type DocumentVideoImageProps = {
-  video: Assisted["Videos"][number][];
+  video: Assisted["videos"][number][];
   image: Assisted["Documents"][number][];
   houseDescription: Assisted["HouseDescription"][number][];
 };

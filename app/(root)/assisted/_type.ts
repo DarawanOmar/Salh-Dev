@@ -1,6 +1,7 @@
 import { sizeImage } from "@/lib/globals";
 import { z } from "zod";
 import { MoneyGiven } from "../users/_type";
+import { Committee } from "../committee/_type";
 
 export const addUAssisted = z.object({
   fullName: z.string().min(1, { message: "ناو داخڵ بکە" }),
@@ -130,6 +131,7 @@ export interface Assisted {
   Documents: Documents[];
   videos: Videos[];
   HouseDescription: HouseDescription[];
+  Committee: Committee[];
 }
 export interface AssistedOnly
   extends Omit<
