@@ -22,4 +22,5 @@ export interface Charitable {
   phone: string;
   address: string;
   description: string;
+  imageUrl: string;
 }

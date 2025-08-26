@@ -4,31 +4,11 @@ import placeHolder from "@/public/empty-product.webp";
 import { getOneCommitee } from "../_lib";
 import { MdArrowBackIosNew } from "react-icons/md";
 import Link from "next/link";
+import OneUserSkleton from "../../users/[id]/_components/skleton";
 
 function OneUser({ params }: ParamsTypeUse) {
   return (
-    <Suspense
-      fallback={
-        <div
-          dir="ltr"
-          className="h-screen grid place-items-center text-4xl font-semibold"
-        >
-          Loading...
-        </div>
-      }
-    >
-      <FeedPage params={params} />
-    </Suspense>
-  );
-}
-
-export default OneUser;
-
-async function FeedPage({ params }: ParamsTypeUse) {
-  const id = (await params).id || "";
-  const oneCommittee = await getOneCommitee(id);
-  return (
-    <div className="">
+    <div>
       <div className="flex flex-row items-center gap-3 my-5">
         <Link
           href={"/committee"}
@@ -39,6 +19,20 @@ async function FeedPage({ params }: ParamsTypeUse) {
         <MdArrowBackIosNew />
         <h1>پڕۆفایل</h1>
       </div>
+      <Suspense fallback={<OneUserSkleton />}>
+        <FeedPage params={params} />
+      </Suspense>
+    </div>
+  );
+}
+
+export default OneUser;
+
+async function FeedPage({ params }: ParamsTypeUse) {
+  const id = (await params).id || "";
+  const oneCommittee = await getOneCommitee(id);
+  return (
+    <>
       <div className="flex flex-col sm:flex-row items-center gap-5 border p-3 rounded-md">
         <Image
           src={oneCommittee.data?.imageUrl || placeHolder}
@@ -54,6 +48,6 @@ async function FeedPage({ params }: ParamsTypeUse) {
           <p>سەرنج : {oneCommittee.data?.note || "نییە"}</p>
         </div>
       </div>
-    </div>
+    </>
   );
 }
