@@ -8,20 +8,7 @@ import { DialogClose } from "@/components/ui/dialog";
 import { useTransition } from "react";
 import { useParams, useRouter } from "next/navigation";
 import LoadingSpinner from "@/components/reusable/loadingSpinner";
-import { SelectFormField } from "@/components/reusable/reusable-select";
-import {
-  useGetCommitteesWithoutPagination,
-  useGetRole,
-} from "@/hooks/use-fetch-queries";
-import {
-  AddCommitteeAssistedAction,
-  updateCommitteeAssistedAction,
-} from "@/app/(root)/assisted/_action";
-import {
-  AddCommitteeAssisted,
-  AddImage,
-  AddImageType,
-} from "@/app/(root)/assisted/_type";
+import { AddImage, AddImageType } from "@/app/(root)/assisted/_type";
 import {
   FileInput,
   FileSvgDraw,

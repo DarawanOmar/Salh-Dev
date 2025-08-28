@@ -15,7 +15,7 @@ import {
   FileUploader,
   FileUploaderItem,
 } from "@/components/ui/file-upload";
-import { sizeImage } from "@/lib/globals";
+import { sizeImage, sizeVideo } from "@/lib/globals";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
 import {
@@ -63,20 +63,6 @@ export default function AddVideoForm({ isEdit, info, handleClose, id }: Props) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="px-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <TextField
-            control={form.control}
-            name="title"
-            label="ناونیشان"
-            placeholder="ناونیشان"
-          />
-
-          <TextField
-            control={form.control}
-            name="description"
-            label="وەسف"
-            placeholder="وەسف"
-          />
-
           <div className="sm:col-span-2">
             <FormField
               control={form.control}
@@ -93,7 +79,7 @@ export default function AddVideoForm({ isEdit, info, handleClose, id }: Props) {
                     dropzoneOptions={{
                       multiple: false,
                       maxFiles: 19,
-                      maxSize: sizeImage,
+                      maxSize: sizeVideo,
                     }}
                     reSelect={true}
                     className="relative bg-background rounded-lg p-2 border border-primary border-dashed"
@@ -145,8 +131,6 @@ const getDefaultValues = (values: Partial<AddVideoType> = {}) => {
   const defaultValues: AddVideoType = {
     url: null,
     headMemberId: "",
-    description: "",
-    title: "",
   };
 
   return { ...defaultValues, ...values };

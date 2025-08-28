@@ -7,17 +7,25 @@ import ModalAddImageHouse from "./form/home/modal-add-image-house";
 import ModalAddDocument from "./form/document/modal-document";
 import ModalAddVideo from "./form/video/modal-add-video";
 import Link from "next/link";
+import HeroVideoDialog from "@/components/magicui/hero-video-dialog";
+import ReusableDeleteDailog from "@/components/reusable/reusable-delete-dialog";
+import {
+  deleteDocumentAction,
+  deleteHouseImageAction,
+  deleteVideoAction,
+} from "../../_action";
+import { X } from "lucide-react";
 
 type DocumentVideoImageProps = {
-  video: Assisted["videos"][number][];
-  image: Assisted["Documents"][number][];
+  videos: Assisted["videos"][number][];
+  Documents: Assisted["Documents"][number][];
   houseDescription: Assisted["HouseDescription"][number][];
 };
 
 function DocumentVideoImage({
   houseDescription,
-  image,
-  video,
+  Documents,
+  videos,
 }: DocumentVideoImageProps) {
   return (
     <div className="flex flex-col space-y-10">
@@ -32,15 +40,26 @@ function DocumentVideoImage({
           <ModalAddImageHouse />
         </div>
         <div className="my-10 flex items-center overflow-x-auto snap-x gap-5">
-          {Array.from({ length: 10 }).map((_, index) => (
-            <Image
-              key={index}
-              src={Placeholser}
-              alt="image"
-              height={200}
-              width={200}
-              className="object-cover rounded-md w-full h-64"
-            />
+          {houseDescription.map((house) => (
+            <div key={house.id} className="relative">
+              <Image
+                src={house.url || Placeholser}
+                alt="image"
+                height={200}
+                width={200}
+                className="object-cover rounded-md w-full h-64"
+              />
+              <ReusableDeleteDailog
+                id={house.id}
+                actionDelete={deleteHouseImageAction}
+                isFreshButtonPass
+                button={
+                  <button className="absolute top-0 end-0 size-7 rounded-full flex justify-center items-center bg-red-50 text-red-500 cursor-pointer">
+                    <X size={16} />
+                  </button>
+                }
+              />
+            </div>
           ))}
         </div>
       </div>
@@ -55,15 +74,26 @@ function DocumentVideoImage({
           <ModalAddDocument />
         </div>
         <div className="my-10 flex items-center overflow-x-auto snap-x gap-5">
-          {Array.from({ length: 10 }).map((_, index) => (
-            <Image
-              key={index}
-              src={Placeholser}
-              alt="image"
-              height={200}
-              width={200}
-              className="object-cover rounded-md w-full h-64"
-            />
+          {Documents.map((doc) => (
+            <div className="relative" key={doc.id}>
+              <Image
+                src={doc.url || Placeholser}
+                alt="image"
+                height={200}
+                width={200}
+                className="object-cover rounded-md w-full h-64"
+              />
+              <ReusableDeleteDailog
+                id={doc.id}
+                actionDelete={deleteDocumentAction}
+                isFreshButtonPass
+                button={
+                  <button className="absolute top-0 end-0 size-7 rounded-full flex justify-center items-center bg-red-50 text-red-500 cursor-pointer">
+                    <X size={16} />
+                  </button>
+                }
+              />
+            </div>
           ))}
         </div>
       </div>
@@ -78,15 +108,25 @@ function DocumentVideoImage({
           <ModalAddVideo />
         </div>
         <div className="my-10 flex items-center overflow-x-auto snap-x gap-5">
-          {Array.from({ length: 10 }).map((_, index) => (
-            <Image
-              key={index}
-              src={Placeholser}
-              alt="image"
-              height={200}
-              width={200}
-              className="object-cover rounded-md w-full h-64"
-            />
+          {videos.map((video) => (
+            <div className="relative" key={video.id}>
+              <HeroVideoDialog
+                animationStyle="from-center"
+                videoSrc={video.url}
+                thumbnailSrc={Placeholser.src}
+                thumbnailAlt="Dummy Video Thumbnail"
+              />
+              <ReusableDeleteDailog
+                id={video.id}
+                actionDelete={deleteVideoAction}
+                isFreshButtonPass
+                button={
+                  <button className="absolute top-0 end-0 size-7 rounded-full flex justify-center items-center bg-red-50 text-red-500 cursor-pointer">
+                    <X size={16} />
+                  </button>
+                }
+              />
+            </div>
           ))}
         </div>
       </div>

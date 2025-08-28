@@ -9,7 +9,7 @@ export const addUCommittee = z.object({
   imageUrl: z
     .instanceof(File) // Ensure the value is of type `File`
     .refine((file) => file.size < sizeImage, {
-      message: "File size must be less than 1 MB",
+      message: "نابێت ڕەسمەکە لە ٢ مێگابایت زیاتر بێت",
     })
     .nullable(),
 });

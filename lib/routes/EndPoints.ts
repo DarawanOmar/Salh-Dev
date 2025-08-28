@@ -285,7 +285,7 @@ export const EndPoints = {
     getById: (id: string) => `${api}videos/${id}`,
     add: `${api}videos`,
     update: (id: string) => `${api}videos/${id}`,
-    delete: (id: number) => `${api}videos/${id}`,
+    delete: (id: string) => `${api}videos/${id}`,
   },
   role: {
     get: (page: string, search: string) => {

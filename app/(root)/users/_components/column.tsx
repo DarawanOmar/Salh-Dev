@@ -145,6 +145,7 @@ const column: ColumnDef<User>[] = [
                     fullName: row.original?.fullName || "",
                     note: row.original?.note || "",
                     phone: row.original?.phone || "",
+                    imageUrl: null,
                   }}
                 />
               </CustomDialog>

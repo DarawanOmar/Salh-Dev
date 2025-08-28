@@ -1,4 +1,4 @@
-import { sizeImage } from "@/lib/globals";
+import { sizeImage, sizeVideo } from "@/lib/globals";
 import { z } from "zod";
 import { MoneyGiven } from "../users/_type";
 import { Committee } from "../committee/_type";
@@ -28,7 +28,7 @@ export const addUAssisted = z.object({
   // imageUrl: z
   //   .instanceof(File)
   //   .refine((file) => file.size < sizeImage, {
-  //     message: "File size must be less than 1 MB",
+  //     message: "نابێت ڕەسمەکە لە ٢ مێگابایت زیاتر بێت",
   //   })
   //   .nullable(),
 });
@@ -73,7 +73,7 @@ export const AddImage = z.object({
   url: z
     .instanceof(File)
     .refine((file) => file.size < sizeImage, {
-      message: "File size must be less than 1 MB",
+      message: "نابێت ڕەسمەکە لە ٢ مێگابایت زیاتر بێت",
     })
     .nullable(),
   headMemberId: z.string().optional(),
@@ -83,12 +83,10 @@ export type AddImageType = z.infer<typeof AddImage>;
 export const AddVideo = z.object({
   url: z
     .instanceof(File)
-    .refine((file) => file.size < sizeImage, {
-      message: "File size must be less than 1 MB",
+    .refine((file) => file.size < sizeVideo, {
+      message: "نابێت ڕەسمەکە لە ١٠٠ مێگابایت زیاتر بێت",
     })
     .nullable(),
-  title: z.string().optional(),
-  description: z.string().optional(),
   headMemberId: z.string().optional(),
 });
 export type AddVideoType = z.infer<typeof AddVideo>;
@@ -97,10 +95,9 @@ export const AddDocument = z.object({
   url: z
     .instanceof(File)
     .refine((file) => file.size < sizeImage, {
-      message: "File size must be less than 1 MB",
+      message: "نابێت ڕەسمەکە لە ٢ مێگابایت زیاتر بێت",
     })
     .nullable(),
-  description: z.string().optional(),
   headMemberId: z.string().optional(),
 });
 export type AddDocumentType = z.infer<typeof AddDocument>;
@@ -180,19 +177,16 @@ export interface Owning {
 }
 export interface HouseDescription {
   id: string;
-  description: string;
+  url: string;
   headMemberId: string;
 }
 export interface Documents {
   id: string;
-  description: string;
-  url: string | null;
+  url: string;
   headMemberId: string;
 }
 export interface Videos {
   id: string;
-  title: string;
-  description: string;
   url: string;
   headMemberId: string;
 }

@@ -22,7 +22,6 @@ import {
   AddDocumentAction,
   UpdateDocumentAction,
 } from "@/app/(root)/assisted/client-action";
-import { TextField } from "@/components/reusable/input-form-reusable";
 
 type Props = {
   isEdit?: boolean;
@@ -67,12 +66,6 @@ export default function AddImageHouse({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="px-6">
         <div className="grid grid-cols-1 gap-5">
-          <TextField
-            control={form.control}
-            name="description"
-            label="وەسف"
-            placeholder="وەسف"
-          />
           <FormField
             control={form.control}
             name="url"
@@ -139,7 +132,6 @@ const getDefaultValues = (values: Partial<AddDocumentType> = {}) => {
   const defaultValues: AddDocumentType = {
     url: null,
     headMemberId: "",
-    description: "",
   };
 
   return { ...defaultValues, ...values };

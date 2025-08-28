@@ -55,8 +55,8 @@ async function FeedPage({ params, searchParams }: ParamsSearchParamsTypeUser) {
       )}
       <DocumentVideoImage
         houseDescription={oneCommittee.data?.HouseDescription || []}
-        image={oneCommittee.data?.Documents || []}
-        video={oneCommittee.data?.videos || []}
+        Documents={oneCommittee.data?.Documents || []}
+        videos={oneCommittee.data?.videos || []}
       />
     </>
   );

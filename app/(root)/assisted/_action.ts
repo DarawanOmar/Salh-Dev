@@ -154,3 +154,24 @@ export const deleteAssistedAction = async (id: string) => {
   });
   return result;
 };
+export const deleteVideoAction = async (id: string) => {
+  const result = await apiRequest({
+    method: "DELETE",
+    url: EndPoints.videos.delete(id),
+  });
+  return result;
+};
+export const deleteDocumentAction = async (id: string) => {
+  const result = await apiRequest({
+    method: "DELETE",
+    url: EndPoints.documents.delete(id),
+  });
+  return result;
+};
+export const deleteHouseImageAction = async (id: string) => {
+  const result = await apiRequest({
+    method: "DELETE",
+    url: EndPoints.assisted_image.delete(id),
+  });
+  return result;
+};
