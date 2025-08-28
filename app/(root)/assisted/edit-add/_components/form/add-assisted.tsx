@@ -1,4 +1,10 @@
 "use client";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -182,62 +188,27 @@ export default function AddAssisted({ isEdit, info, id }: Props) {
             label="کێشەی سەرەکی"
             placeholder="کێشەی سەرەکی"
           />
-          {/* <div className="sm:col-span-2 ">
-            <FormField
-              control={form.control}
-              name="imageUrl"
-              render={({ field }) => (
-                <>
-                  <FormLabel className="text-base">وێـــنـــە </FormLabel>
-                  <FileUploader
-                    value={field.value ? [field.value] : null}
-                    onValueChange={(files) => {
-                      const selectedFile = files?.[0] || null;
-                      field.onChange(selectedFile);
+
+          <div className="sm:col-span-2">
+            <Accordion type="single" collapsible>
+              <AccordionItem value="item-1">
+                <AccordionTrigger>
+                  <div className="bg-primary p-3 rounded-lg text-primary-foreground">
+                    زیــادکــردنــی لەســەر نــەخــشــە
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <Map
+                    lant={form.watch("latitude")}
+                    long={form.watch("longitude")}
+                    setFormValues={(lat, lng) => {
+                      form.setValue("latitude", lat);
+                      form.setValue("longitude", lng);
                     }}
-                    dropzoneOptions={{
-                      multiple: false,
-                      maxFiles: 19,
-                      maxSize: sizeImage,
-                    }}
-                    reSelect={true}
-                    className="relative bg-background rounded-lg p-2 border border-primary border-dashed"
-                  >
-                    <FileInput className="outline-hidden ">
-                      <div className="flex items-center justify-center flex-col pt-3 pb-4  ">
-                        {field.value && (
-                          <FileUploaderItem
-                            index={0}
-                            aria-roledescription={`file containing ${field.value.name}`}
-                            className="p-0 size-20"
-                          >
-                            <AspectRatio className="size-full">
-                              <Image
-                                src={URL.createObjectURL(field.value)}
-                                alt={field.value.name}
-                                className="object-cover rounded-md"
-                                fill
-                              />
-                            </AspectRatio>
-                          </FileUploaderItem>
-                        )}
-                        {!field.value && <FileSvgDraw />}
-                      </div>
-                    </FileInput>
-                  </FileUploader>
-                </>
-              )}
-            />
-          </div> */}
-          <div className="sm:col-span-2 ">
-            <Map
-              lant={form.watch("latitude")}
-              long={form.watch("longitude")}
-              setFormValues={(lat, lng) => {
-                form.setValue("latitude", lat);
-                form.setValue("longitude", lng);
-              }}
-            />
+                  />
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </div>
 

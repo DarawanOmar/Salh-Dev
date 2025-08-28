@@ -2,22 +2,33 @@ import Image from "next/image";
 import React, { Suspense } from "react";
 import placeHolder from "@/public/empty-product.webp";
 import { getOneCommitee } from "../_lib";
-import { MdArrowBackIosNew } from "react-icons/md";
+import {
+  MdArrowBackIosNew,
+  MdOutlineKeyboardDoubleArrowLeft,
+} from "react-icons/md";
 import Link from "next/link";
 import OneUserSkleton from "../../users/[id]/_components/skleton";
+import { Button } from "@/components/ui/button";
 
 function OneUser({ params }: ParamsTypeUse) {
   return (
     <div>
-      <div className="flex flex-row items-center gap-3 my-5">
-        <Link
-          href={"/committee"}
-          className="hover:underline hover:text-primary"
-        >
-          لــیــژنــە
+      <div className="flex flex-col sm:flex-row justify-between sm:items-center my-5 px-5">
+        <div className="flex flex-row items-center gap-3 my-5">
+          <Link
+            href={"/committee"}
+            className="hover:underline hover:text-primary"
+          >
+            لــیــژنــە
+          </Link>
+          <MdArrowBackIosNew />
+          <h1>پڕۆفایل</h1>
+        </div>
+        <Link href={"/committee"}>
+          <Button>
+            گــەڕانــەوە <MdOutlineKeyboardDoubleArrowLeft />
+          </Button>
         </Link>
-        <MdArrowBackIosNew />
-        <h1>پڕۆفایل</h1>
       </div>
       <Suspense fallback={<OneUserSkleton />}>
         <FeedPage params={params} />

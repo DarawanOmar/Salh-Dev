@@ -1,6 +1,9 @@
 import React, { Suspense } from "react";
 import { getOneUser } from "../_lib";
-import { MdArrowBackIosNew } from "react-icons/md";
+import {
+  MdArrowBackIosNew,
+  MdOutlineKeyboardDoubleArrowLeft,
+} from "react-icons/md";
 import { DataTable } from "@/components/reusable/table";
 import column_recive from "./_components/column-recived";
 import column_given from "./_components/column-given";
@@ -8,17 +11,26 @@ import Link from "next/link";
 import InfoUser from "./_components/info-user";
 import { User } from "../_type";
 import OneUserSkleton from "./_components/skleton";
+import { Button } from "@/components/ui/button";
 
 function OneUser({ params }: ParamsTypeUse) {
   return (
     <div className="">
-      <div className="flex flex-row items-center gap-3 my-5">
-        <Link href={"/users"} className="hover:underline hover:text-primary">
-          بەکارهێنەر
+      <div className="flex flex-col sm:flex-row justify-between sm:items-center my-5 px-5">
+        <div className="flex flex-row items-center gap-3 my-5">
+          <Link href={"/users"} className="hover:underline hover:text-primary">
+            بەکارهێنەر
+          </Link>
+          <MdArrowBackIosNew />
+          <h1>پڕۆفایل</h1>
+        </div>
+        <Link href={"/users"}>
+          <Button>
+            گــەڕانــەوە <MdOutlineKeyboardDoubleArrowLeft />
+          </Button>
         </Link>
-        <MdArrowBackIosNew />
-        <h1>پڕۆفایل</h1>
       </div>
+
       <Suspense fallback={<OneUserSkleton />}>
         <FeedPage params={params} />
       </Suspense>

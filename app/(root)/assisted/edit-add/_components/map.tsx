@@ -104,7 +104,7 @@ function Map({ setFormValues, lant, long, readOnly = false }: MapProps) {
   return (
     <div style={{ display: "flex", borderRadius: "20px" }}>
       <MapContainer
-        style={{ height: "32vh", width: "100%", borderRadius: "20px" }}
+        style={{ height: "70vh", width: "100%", borderRadius: "20px" }}
         center={getInitialCenter()}
         zoom={getInitialZoom()}
         attributionControl={false}

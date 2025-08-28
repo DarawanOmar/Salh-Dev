@@ -52,16 +52,18 @@ async function EditAddAssisted({ searchParams }: SearchParamsTypeUse) {
   }
   return (
     <>
-      <div className="flex justify-between items-center my-5 px-5">
+      <div className="flex flex-col sm:flex-row justify-between sm:items-center my-5 px-5">
         <div className="flex flex-row items-center gap-3 my-5">
           <Link
             href={"/assisted"}
-            className="hover:underline hover:text-primary"
+            className="hover:underline hover:text-primary max-sm:text-xs"
           >
             هــاوکــاریــکــراون
           </Link>
           <MdArrowBackIosNew />
-          <h1>زیــادکــردنــی هـــاوکـــاریــکــراو</h1>
+          <h1 className="max-sm:text-xs">
+            زیــادکــردنــی هـــاوکـــاریــکــراو
+          </h1>
         </div>
         <Link href={"/assisted"}>
           <Button>
