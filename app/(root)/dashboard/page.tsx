@@ -21,7 +21,6 @@ function Page() {
 export default Page;
 
 async function FeedDashboard() {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
   const dataDashboard = await getDashboardData();
   const countNotifications = await getNotifications();
   return (
