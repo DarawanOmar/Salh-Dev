@@ -2,7 +2,7 @@
 
 import { apiRequest } from "@/lib/utils/axiosHandler";
 import { EndPoints } from "@/lib/routes/EndPoints";
-import { addRoleType } from "./_type";
+import { addRoleType, TogglePermissionData } from "./_type";
 
 export const addRoleAction = async (data: addRoleType) => {
   const result = await apiRequest({
@@ -18,6 +18,18 @@ export const updateRoleAction = async (id: string, data: addRoleType) => {
   const result = await apiRequest({
     method: "PATCH",
     url: EndPoints.role.update(id),
+    data,
+  });
+  return result;
+};
+export const updatePermissionAction = async (
+  permission_id: string,
+  data: TogglePermissionData
+) => {
+  console.log("Data => ", data, "permission_id => ", permission_id);
+  const result = await apiRequest({
+    method: "PATCH",
+    url: EndPoints.role.togglePermission(permission_id),
     data,
   });
   return result;

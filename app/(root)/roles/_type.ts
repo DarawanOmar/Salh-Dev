@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { Permission } from "../users/_type";
 
 export const addRole = z.object({
   name: z.string(),
@@ -11,4 +12,12 @@ export interface Role {
   name: string;
   createdAt: string;
   updatedAt: string;
+  permissions: Permission[];
 }
+
+export type TogglePermissionData = {
+  action: string;
+  resource: string;
+  roleId: string;
+  status: boolean;
+};

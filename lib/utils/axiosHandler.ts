@@ -4,8 +4,6 @@ export async function apiRequest<T>(
   config: RequestInit & {
     url: string;
     data?: any;
-    fromClient?: boolean;
-    localeOverride?: string;
   }
 ): Promise<{ success: boolean; data?: T; message: string }> {
   try {
@@ -19,14 +17,12 @@ export async function apiRequest<T>(
 
     const requestOptions: RequestInit = {
       ...config,
-
       headers: {
         ...headers,
         ...(config.headers || {}),
       },
     };
 
-    // Attach body if data is provided and the method is not GET
     if (config.data && config.method !== "GET") {
       requestOptions.body = JSON.stringify(config.data);
     }
@@ -65,22 +61,6 @@ export async function apiRequest<T>(
       data: response.ok ? responseData : undefined,
       message,
     };
-
-    // let message: string;
-
-    // if (responseData && typeof responseData === "object") {
-    //   message = !!Object.keys(responseData).length
-    //     ? String(responseData[Object.keys(responseData)[0]])
-    //     : "Success but no data";
-    // } else {
-    //   message = String(responseData);
-    // }
-
-    // return {
-    //   success: response.ok,
-    //   data: response.ok ? responseData : undefined,
-    //   message,
-    // };
   } catch (error: any) {
     const message = error?.response?.data
       ? Object.keys(error.response.data)[0] +

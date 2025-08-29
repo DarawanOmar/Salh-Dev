@@ -63,7 +63,10 @@ const column: ColumnDef<Role>[] = [
                 }
                 title={`ڕێــکــخـسـتـنی ڕۆڵ بــۆ ${row.original?.name}`}
               >
-                <ActivePermission roleId={id} />
+                <ActivePermission
+                  permissions={row.original?.permissions}
+                  roleId={row.original.id}
+                />
               </CustomDialog>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="h-8 w-8 p-0">
