@@ -126,12 +126,12 @@ export interface Assisted {
   imageUrl: string | null;
   biggestProblem: string;
   drugs: string;
-  MoneyGiven: MoneyGiven[];
   FamilyMember: FamilyMember[];
   Owning: Owning[];
+  MoneyGiven: MoneyGiven[];
+  houseImages: HouseImages[];
   Documents: Documents[];
   videos: Videos[];
-  HouseDescription: HouseDescription[];
   CommitteeMember: CommitteeMember[];
 }
 export interface AssistedOnly
@@ -143,7 +143,7 @@ export interface AssistedOnly
     | "Documents"
     | "Videos"
     | "HeadMemberDrug"
-    | "HouseDescription"
+    | "HouseImages"
   > {}
 export interface CommitteeMember {
   id: string;
@@ -175,7 +175,7 @@ export interface Owning {
   description: string;
   headMemberId: string;
 }
-export interface HouseDescription {
+export interface HouseImages {
   id: string;
   url: string;
   headMemberId: string;

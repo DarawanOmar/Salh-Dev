@@ -19,13 +19,15 @@ import { X } from "lucide-react";
 type DocumentVideoImageProps = {
   videos: Assisted["videos"][number][];
   Documents: Assisted["Documents"][number][];
-  houseDescription: Assisted["HouseDescription"][number][];
+  houseDescription: Assisted["houseImages"][number][];
+  isQrcodePage?: boolean;
 };
 
 function DocumentVideoImage({
   houseDescription,
   Documents,
   videos,
+  isQrcodePage = true,
 }: DocumentVideoImageProps) {
   return (
     <div className="flex flex-col space-y-10">
@@ -37,7 +39,7 @@ function DocumentVideoImage({
             source={"هــاوکــاریــکــراون"}
             destination={"وێنەی ناومــاڵ"}
           />
-          <ModalAddImageHouse />
+          {isQrcodePage ? null : <ModalAddImageHouse />}
         </div>
         <div className="my-10 flex items-center overflow-x-auto snap-x gap-5">
           {houseDescription.map((house) => (
@@ -71,7 +73,7 @@ function DocumentVideoImage({
             source={"هــاوکــاریــکــراون"}
             destination={"وێنەی بــەڵــگـەنامە"}
           />
-          <ModalAddDocument />
+          {isQrcodePage ? null : <ModalAddDocument />}
         </div>
         <div className="my-10 flex items-center overflow-x-auto snap-x gap-5">
           {Documents.map((doc) => (
@@ -105,7 +107,7 @@ function DocumentVideoImage({
             source={"هــاوکــاریــکــراون"}
             destination={"فــیــدۆیــەکان"}
           />
-          <ModalAddVideo />
+          {isQrcodePage ? null : <ModalAddVideo />}
         </div>
         <div className="my-10 flex items-center overflow-x-auto snap-x gap-5">
           {videos.map((video) => (

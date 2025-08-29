@@ -169,6 +169,7 @@ export const deleteDocumentAction = async (id: string) => {
   return result;
 };
 export const deleteHouseImageAction = async (id: string) => {
+  console.log("URL => ", EndPoints.assisted_image.delete(id));
   const result = await apiRequest({
     method: "DELETE",
     url: EndPoints.assisted_image.delete(id),

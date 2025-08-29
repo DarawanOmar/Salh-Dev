@@ -52,7 +52,6 @@ async function FeedPage({ params, searchParams }: ParamsSearchParamsTypeUser) {
     { key: "tab", defaultValue: "family_member" },
   ]);
   const oneCommittee = await getOneAssisted(id);
-  await new Promise((resolve) => setTimeout(resolve, 1500));
   return (
     <>
       <DetailInfo oneCommittee={oneCommittee.data || ({} as Assisted)} />
@@ -69,7 +68,7 @@ async function FeedPage({ params, searchParams }: ParamsSearchParamsTypeUser) {
         />
       )}
       <DocumentVideoImage
-        houseDescription={oneCommittee.data?.HouseDescription || []}
+        houseDescription={oneCommittee.data?.houseImages || []}
         Documents={oneCommittee.data?.Documents || []}
         videos={oneCommittee.data?.videos || []}
       />

@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { cn } from "@/lib/utils";
 import { fontSirwan } from "@/public/fonts";
 import { Toaster } from "sonner";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 export default function MainLayout({
   children,
@@ -18,7 +19,7 @@ export default function MainLayout({
           defaultTheme="light"
           disableTransitionOnChange
         >
-          {children}
+          <NuqsAdapter>{children}</NuqsAdapter>
           <Toaster
             dir="rtl"
             toastOptions={{

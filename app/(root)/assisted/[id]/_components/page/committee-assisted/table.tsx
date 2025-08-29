@@ -8,21 +8,27 @@ import columnCommitteeAssisted from "./column";
 
 type Props = {
   data: Assisted["CommitteeMember"][0][];
+  isQrcodePage?: boolean;
 };
 
-function TableCommitteeAssisted({ data }: Props) {
+function TableCommitteeAssisted({ data, isQrcodePage = true }: Props) {
   return (
     <div className="my-10">
-      <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-5">
-        <div className="flex flex-row items-center gap-3 my-5">
-          <Link href={"/users"} className="hover:underline hover:text-primary">
-            هــاوکـــاریــکــراو
-          </Link>
-          <MdArrowBackIosNew />
-          <h1>لــیــســتی لــیــژنە</h1>
+      {isQrcodePage ? null : (
+        <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-5">
+          <div className="flex flex-row items-center gap-3 my-5">
+            <Link
+              href={"/users"}
+              className="hover:underline hover:text-primary"
+            >
+              هــاوکـــاریــکــراو
+            </Link>
+            <MdArrowBackIosNew />
+            <h1>لــیــســتی لــیــژنە</h1>
+          </div>
+          <ModalAddCommitteeAssiste />
         </div>
-        <ModalAddCommitteeAssiste />
-      </div>
+      )}
       <DataTable
         havePagination={false}
         data={data || []}

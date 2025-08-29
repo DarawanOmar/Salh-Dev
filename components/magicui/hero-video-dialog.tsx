@@ -82,10 +82,6 @@ export default function HeroVideoDialog({
     return videoExtensions.some((ext) => url.toLowerCase().includes(ext));
   };
 
-  const isYouTubeEmbed = (url: string) => {
-    return url.includes("youtube.com/embed") || url.includes("youtu.be");
-  };
-
   const renderVideoPlayer = () => {
     if (isDirectVideoFile(videoSrc)) {
       return (

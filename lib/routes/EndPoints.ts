@@ -152,12 +152,12 @@ export const EndPoints = {
 
       const queryString =
         queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
-      return `${api}houseImages?page=${page}&per_page=10${queryString}`;
+      return `${api}house-images?page=${page}&per_page=10${queryString}`;
     },
-    getById: (id: string) => `${api}houseImages/${id}`,
-    add: `${api}houseImages`,
-    update: (id: string) => `${api}houseImages/${id}`,
-    delete: (id: string) => `${api}houseImages/${id}`,
+    getById: (id: string) => `${api}house-images/${id}`,
+    add: `${api}house-images`,
+    update: (id: string) => `${api}house-images/${id}`,
+    delete: (id: string) => `${api}house-images/${id}`,
   },
   head_members: {
     get: (page: string, search: string) => {
