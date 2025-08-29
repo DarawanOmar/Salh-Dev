@@ -33,7 +33,7 @@ function DocumentVideoImage({
     <div className="flex flex-col space-y-10">
       {/* Images List */}
       <div className="flex flex-col space-y-5">
-        <div className="flex flex-col sm:flex-row justify-between items-center">
+        <div className="flex flex-col sm:flex-row justify-between sm:items-center">
           <Bumcrumb
             link={"/assisted"}
             source={"هــاوکــاریــکــراون"}
@@ -70,7 +70,7 @@ function DocumentVideoImage({
       </div>
       {/* Documents List */}
       <div className="flex flex-col space-y-5">
-        <div className="flex flex-col sm:flex-row justify-between items-center">
+        <div className="flex flex-col sm:flex-row justify-between sm:items-center">
           <Bumcrumb
             link={"/assisted"}
             source={"هــاوکــاریــکــراون"}
@@ -107,7 +107,7 @@ function DocumentVideoImage({
       </div>
       {/* Video List */}
       <div className="flex flex-col space-y-5">
-        <div className="flex flex-col sm:flex-row justify-between items-center">
+        <div className="flex flex-col sm:flex-row justify-between sm:items-center">
           <Bumcrumb
             link={"/assisted"}
             source={"هــاوکــاریــکــراون"}
