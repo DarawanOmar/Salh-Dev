@@ -1,76 +1,83 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, useTransition } from "react";
 import { getBackupAction, restoreBackupAction } from "../client-action";
 import { Button } from "@/components/ui/button";
 
 function GetRestoreBackup() {
-  const [isBackupLoading, setIsBackupLoading] = useState(false);
-  const [isRestoreLoading, setIsRestoreLoading] = useState(false);
-  const [backupData, setBackupData] = useState(null);
+  const [pendingBackup, setPendingBackup] = useTransition();
+  const [pendingRestore, setPendingRestore] = useTransition();
+  const [backupUrl, setBackupUrl] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleBackup = async () => {
-    setIsBackupLoading(true);
-    setMessage("");
+  useEffect(() => {
+    const savedBackupUrl = localStorage.getItem("backupUrl");
+    if (savedBackupUrl) {
+      setBackupUrl(savedBackupUrl);
+    }
+  }, []);
 
+  const handleBackup = async () => {
+    setMessage("");
     try {
-      const result = await getBackupAction();
-      if (result.success && result.data) {
-        setBackupData(result.data);
-        setMessage("پاشەکەوتی داتــابــەس وەربگرا");
-      } else {
-        setMessage(
-          "هەڵە ڕوویدا لە پاشەکەوت کردن: " + (result.message || "هەڵەی نادیار")
-        );
-      }
+      setPendingBackup(async () => {
+        const result = await getBackupAction();
+        if (result.message === "Backup completed" && result.data?.backupUrl) {
+          setBackupUrl(result.data?.backupUrl);
+          localStorage.setItem("backupUrl", result.data?.backupUrl);
+          setMessage("پاشەکەوتی داتــابــەس وەربگرا");
+        } else {
+          setMessage(
+            "هەڵە ڕوویدا لە پاشەکەوت کردن: " +
+              (result.message || "هەڵەی نادیار")
+          );
+        }
+      });
     } catch (error) {
       console.error("Backup error:", error);
       setMessage("هەڵەی ڕوویدا لە کاتی وەرگرتنی پاشەکەوت");
-    } finally {
-      setIsBackupLoading(false);
     }
   };
 
   const handleRestore = async () => {
-    if (!backupData) {
+    if (!backupUrl) {
       setMessage("تکایە سەرەتا پاشەکەوت بکە پێش گەڕاندنەوە");
       return;
     }
-
-    setIsRestoreLoading(true);
     setMessage("");
-
     try {
-      const result = await restoreBackupAction({
-        sqlFile: backupData,
-        fileName: `backup_${new Date().toISOString().split("T")[0]}.sql`,
+      setPendingRestore(async () => {
+        const result = await restoreBackupAction(backupUrl);
+        if (result.success) {
+          setMessage("پاشەکەوتی داتــابــەس گەڕاندنەوەیەکی سەرکەوتووی هەیە!");
+          clearBackup();
+        } else {
+          setMessage(
+            "هەڵە ڕوویدا لە گەڕاندنەوە: " + (result.message || "هەڵەی نادیار")
+          );
+        }
       });
-
-      if (result.success) {
-        setMessage("پاشەکەوتی داتــابــەس گەڕاندنەوەیەکی سەرکەوتووی هەیە!");
-      } else {
-        setMessage(
-          "هەڵە ڕوویدا لە گەڕاندنەوە: " + (result.message || "هەڵەی نادیار")
-        );
-      }
     } catch (error) {
       console.error("Restore error:", error);
       setMessage("هەڵەی ڕوویدا لە کاتی گەڕاندنەوەی پاشەکەوت");
-    } finally {
-      setIsRestoreLoading(false);
     }
   };
 
+  const clearBackup = () => {
+    setBackupUrl("");
+    localStorage.removeItem("backupUrl");
+    setMessage("");
+  };
+
   return (
-    <div className="max-w-2xl mx-auto p-6  rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-6  text-center">
+    <div className="max-w-2xl mx-auto p-6 rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold mb-6 text-center">
         پــاشــەکەوتکردن و گەڕاندنەوەی داتــابــەس
       </h2>
 
       {message && (
         <div
           className={`mb-4 p-3 rounded ${
-            message.includes("success")
+            message.includes("سەرکەوتوو") || message.includes("وەربگرا")
               ? "bg-green-100 text-green-700 border border-green-300"
               : "bg-red-100 text-red-700 border border-red-300"
           }`}
@@ -86,8 +93,8 @@ function GetRestoreBackup() {
         <p className="text-sm text-gray-600 mb-4">
           پاشەکەوتی داتــابــەس وەربگرە و بیپارێزە بۆ گەڕاندنەوە.
         </p>
-        <Button onClick={handleBackup} disabled={isBackupLoading}>
-          {isBackupLoading ? (
+        <Button onClick={handleBackup} disabled={pendingBackup}>
+          {pendingBackup ? (
             <>
               <span className="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></span>
               وەرگرتنی پاشەکەوت...
@@ -97,11 +104,24 @@ function GetRestoreBackup() {
           )}
         </Button>
 
-        {backupData && (
+        {backupUrl && (
           <div className="mt-3 p-2 bg-green-50 border border-green-300 rounded">
-            <p className="text-sm text-green-700">
-              ✓ زانیاری پاشەکەوت بارکرا و ئامادەیە بۆ گەڕاندنەوە
+            <p className="text-sm text-green-700 mb-2">
+              ✓ پاشەکەوت ئامادەیە بۆ گەڕاندنەوە
             </p>
+            <div className="flex items-center justify-between">
+              <p className="text-xs text-green-600 truncate flex-1 mr-2">
+                {backupUrl}
+              </p>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={clearBackup}
+                className="text-xs"
+              >
+                پاککردنەوە
+              </Button>
+            </div>
           </div>
         )}
       </div>
@@ -114,11 +134,8 @@ function GetRestoreBackup() {
           گەڕاندنەوەی داتــابــەس بۆ پاشەکەوتی وەرگرتوو.
         </p>
 
-        <Button
-          onClick={handleRestore}
-          disabled={isRestoreLoading || !backupData}
-        >
-          {isRestoreLoading ? (
+        <Button onClick={handleRestore} disabled={pendingRestore || !backupUrl}>
+          {pendingRestore ? (
             <>
               <span className="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></span>
               گەڕاندنەوەی داتــابــەس...
@@ -128,7 +145,7 @@ function GetRestoreBackup() {
           )}
         </Button>
 
-        {!backupData && (
+        {!backupUrl && (
           <p className="mt-3 text-sm text-gray-500">
             تکایە سەرەتا پاشەکەوت بکە بۆ ئەوەی بتوانیت بیگەڕێنیتەوە.
           </p>

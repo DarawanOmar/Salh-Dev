@@ -5,7 +5,7 @@ export const getBackupAction = async () => {
   try {
     const res = await instance.get(EndPoints.backup.get);
     return {
-      data: res.data,
+      data: res.data as BackupResponse,
       success: true,
       message: res.data.message,
     };
@@ -22,9 +22,9 @@ export const getBackupAction = async () => {
     };
   }
 };
-export const restoreBackupAction = async (data: any) => {
+export const restoreBackupAction = async (backupUrl: string) => {
   try {
-    const res = await instance.post(EndPoints.backup.restore, data);
+    const res = await instance.post(EndPoints.backup.restore, { backupUrl });
     return {
       success: true,
       message: res.data.message,
@@ -41,4 +41,10 @@ export const restoreBackupAction = async (data: any) => {
       message,
     };
   }
+};
+
+type BackupResponse = {
+  message: string;
+  backupFile: string;
+  backupUrl: string;
 };
