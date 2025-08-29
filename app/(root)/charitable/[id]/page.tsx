@@ -13,13 +13,13 @@ import { Button } from "@/components/ui/button";
 function OneUser({ params }: ParamsTypeUse) {
   return (
     <div className="">
-      <div className="flex flex-col sm:flex-row justify-between sm:items-center my-5 px-5">
+      <div className="flex justify-between items-center my-5 px-5">
         <div className="flex flex-row items-center gap-3 my-5">
           <Link
             href={"/charitable"}
             className="hover:underline hover:text-primary"
           >
-            خــێـــرخــواز
+            خـێرخواز
           </Link>
           <MdArrowBackIosNew />
           <h1>پڕۆفایل</h1>
@@ -27,7 +27,7 @@ function OneUser({ params }: ParamsTypeUse) {
 
         <Link href={"/charitable"}>
           <Button>
-            گــەڕانــەوە <MdOutlineKeyboardDoubleArrowLeft />
+            گـەڕانەوە <MdOutlineKeyboardDoubleArrowLeft />
           </Button>
         </Link>
       </div>

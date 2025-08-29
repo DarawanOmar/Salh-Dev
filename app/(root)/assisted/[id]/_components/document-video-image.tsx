@@ -41,15 +41,18 @@ function DocumentVideoImage({
           />
           {isQrcodePage ? null : <ModalAddImageHouse />}
         </div>
-        <div className="my-10 flex items-center overflow-x-auto snap-x gap-5">
+        <div className="my-10 flex items-center overflow-x-auto snap-x gap-5 w-full">
           {houseDescription.map((house) => (
-            <div key={house.id} className="relative">
+            <div
+              key={house.id}
+              className="relative flex-shrink-0 w-64 h-64 snap-center"
+            >
               <Image
                 src={house.url || Placeholser}
                 alt="image"
                 height={200}
                 width={200}
-                className="object-cover rounded-md w-full h-64"
+                className="object-cover rounded-md w-full h-full"
               />
               <ReusableDeleteDailog
                 id={house.id}
@@ -75,9 +78,12 @@ function DocumentVideoImage({
           />
           {isQrcodePage ? null : <ModalAddDocument />}
         </div>
-        <div className="my-10 flex items-center overflow-x-auto snap-x gap-5">
+        <div className="my-10 flex items-center overflow-x-auto snap-x gap-5 w-full">
           {Documents.map((doc) => (
-            <div className="relative" key={doc.id}>
+            <div
+              className="relative flex-shrink-0 w-64 h-64 snap-center"
+              key={doc.id}
+            >
               <Image
                 src={doc.url || Placeholser}
                 alt="image"
@@ -109,9 +115,12 @@ function DocumentVideoImage({
           />
           {isQrcodePage ? null : <ModalAddVideo />}
         </div>
-        <div className="my-10 flex items-center overflow-x-auto snap-x gap-5">
+        <div className="my-10 flex items-center overflow-x-auto snap-x gap-5 w-full">
           {videos.map((video) => (
-            <div className="relative" key={video.id}>
+            <div
+              className="relative flex-shrink-0 w-64 h-64 snap-center"
+              key={video.id}
+            >
               <HeroVideoDialog
                 animationStyle="from-center"
                 videoSrc={video.url}
