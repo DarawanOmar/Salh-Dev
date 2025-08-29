@@ -11,7 +11,7 @@ type Props = {
   isQrcodePage?: boolean;
 };
 
-function TableFamilyMember({ data, isQrcodePage = true }: Props) {
+function TableFamilyMember({ data, isQrcodePage = false }: Props) {
   return (
     <div className="my-10">
       {isQrcodePage ? null : (

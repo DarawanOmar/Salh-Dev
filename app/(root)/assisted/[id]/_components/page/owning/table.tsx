@@ -11,7 +11,7 @@ type Props = {
   isQrcodePage?: boolean;
 };
 
-function TableOwning({ data, isQrcodePage = true }: Props) {
+function TableOwning({ data, isQrcodePage = false }: Props) {
   return (
     <div className="my-10">
       {isQrcodePage ? null : (

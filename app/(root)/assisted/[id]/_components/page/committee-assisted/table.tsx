@@ -11,7 +11,7 @@ type Props = {
   isQrcodePage?: boolean;
 };
 
-function TableCommitteeAssisted({ data, isQrcodePage = true }: Props) {
+function TableCommitteeAssisted({ data, isQrcodePage = false }: Props) {
   return (
     <div className="my-10">
       {isQrcodePage ? null : (

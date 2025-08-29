@@ -27,7 +27,7 @@ function DocumentVideoImage({
   houseDescription,
   Documents,
   videos,
-  isQrcodePage = true,
+  isQrcodePage = false,
 }: DocumentVideoImageProps) {
   return (
     <div className="flex flex-col space-y-10">
